@@ -40,7 +40,7 @@ var schema = new mongoose.Schema({
     cardNumber: { type: Number },
     expiration: { type: Date },
     csv: { type: Number },
-    nameOnCard: { type: String }
+    nameOnCard: { type: String },
     title: String
   }]
 });
