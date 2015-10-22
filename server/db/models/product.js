@@ -2,7 +2,8 @@
 
 var crypto   = require('crypto');
 var mongoose = require('mongoose');
-var Review   = require('./review');
+//var Review   = require('./review');
+var reviewSchema = require('./review.js').review;
 
 var productSchema = new mongoose.Schema({
 	name:{
@@ -22,7 +23,7 @@ var productSchema = new mongoose.Schema({
 		default: 'path/to/default/image'
 	},
 	dateIntroduced:{
-		type: Date, 
+		type: Date,
 		default: Date.now
 	},
 	unitOfSale : [{
@@ -32,9 +33,7 @@ var productSchema = new mongoose.Schema({
 	price: {
 		type: Number
 	},
-	reviews : [
-		Review.schema
-	]
+	reviews : [ reviewSchema ]
 
 });
 
