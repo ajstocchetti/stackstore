@@ -1,14 +1,14 @@
 /**
  * Created by uzer-y on 10/21/15.
  */
-
+require('../../../server/db/models');
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 var mongoose = require('mongoose');
 var chai = require('chai');
 var expect = require('chai').expect;
 var Product = mongoose.model('Product');
-var db = require('../server/db/index');
+//var db = require('../server/db/index');
 
 describe('Product Statics', function() {
     beforeEach('Establish DB connection', function (done) {

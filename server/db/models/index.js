@@ -4,3 +4,5 @@
 require('./address');
 require('./user');
 require('./order');
+require('./review');
+require('./product');
