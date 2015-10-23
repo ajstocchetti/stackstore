@@ -22,26 +22,24 @@ var schema = new mongoose.Schema({
     id: String,
     username: String,
     token: String,
-    tokenSecret: String
+    tokenSecret: String,
+    select: false
   },
   facebook: {
-    id: String
+    id: String,
+    select: false
   },
   google: {
-    id: String
+    id: String,
+    select: false
   },
   isAdmin: {
     type: Boolean,
     default: false
   },
-  mailingAddr: [addressSchema],
-  billingInfo: [{
-    address: [ addressSchema ],
-    cardNumber: { type: Number },
-    expiration: { type: Date },
-    csv: { type: Number },
-    nameOnCard: { type: String },
-    title: String
+  addresses: [addressSchema],
+  productsPurchased: [{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Product'
   }]
 });
 
