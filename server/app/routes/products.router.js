@@ -6,21 +6,16 @@
 var router = require('express').Router(),
          _ = require('lodash');
 
-var Product = require('../db/models/product');
+var Product = require('../../db/models/product');
 
 
 
-router.param('productId', function (req, res, next, id) {
-    Product.findById(productId).exec()
-        .then(function (product) {
-            if (!product) throw HttpError(404);
-            req.product = product;
-            req.productId = productId;
-            next();
-        })
-        .then(null, next);
+
+router.param('productId', function(req, res, next, productId){
+ req.productId = productId;
+ next();
 });
-
+router.use('/:productId/reviews', require('./reviews.router'));
 
 router.get('/', function (req, res, next) {
     Product.find({}).exec()
