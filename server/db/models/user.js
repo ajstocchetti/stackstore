@@ -93,9 +93,14 @@ schema.path('email').validate(emailVal, "Email is invalid")
    CONVENIENCE METHODS
 */
 
-// Get orders for a user
+// Get orders for a user that is not in cart status
 schema.methods.getOrders = function() {
-  Order.find({ user: this._id})
+  Order.find({ 
+    user: this._id,
+    status: {
+      $ne: 'cart'
+    }
+  })
   .then(function(orders) {
     res.json(orders)
   })
