@@ -30,16 +30,23 @@ var schema = new mongoose.Schema({
   }
 });
 
-// function validateOwner(owner) {
-//   return owner && (owner.user || owner.session);
-// }
-// schema.path('owner').validate(validateOwner, "Order doesn't have an owner");
-function v2(session) {
-  return session || this.owner;
+schema.statics.getUserCart = function(req) {
+  var searches = [];
+  if(req.user && req.user._id) {
+    searches.push(this.model('Order').find({ user: req.user._id }))
+  }
+  if(req.session && req.session.id) {
+    searches.push(this.model('Order').find({ session: req.session.id }))
+  }
+  return Promise.all(searches).then(function(vals) {
+    for(var x=0; x<vals.length; x++) {
+      if(vals[x][0]) {
+        return vals[x][0];
+      }
+    }
+    return null;
+  })
 }
-schema.path('session').validate(v2, "Order doesn't have an owner")
 
 var Order = mongoose.model('Order', schema);
 Order.on('error', console.log)
-
-// module.exports = Order;

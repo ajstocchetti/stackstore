@@ -1,43 +1,43 @@
 'use strict';
 var router = require('express').Router();
+var join = require('bluebird').join;
 var mongoose = require('mongoose');
-require('../../db/models')
+// require('../../db/models')
 var Order = mongoose.model('Order');
+var Product = mongoose.model('Product');
 
 module.exports = router;
 // var _ = require('lodash');
 
-// var lookupCart = function(req) {
-//   Order.findOne({ session: req.session.id, status: 'cart' })
-//       .then(function(cart) {
-//         console.log("in lookup ", cart)
-//         return cart || -1;
-//       })
-//       .then(null, function(err) {
-//         return -1
-//       })
-// }
+
+router.get('/test', function(req, res) {
+  console.log(Promise.join)
+  return Order.getUserCart(req).then(function(x) {
+    res.send(x)
+  })
+});
+
+
 var lookupCart = function(req) {
-  if(req.user) {
-    return Order.findOne({ user: req.user, status: 'cart' })
-      .then(function(cart) {
-        return cart || -1;
-      })
-      .then(null, function(err) {
-        return -1
-      })
-  }
-  else if(req.session) {
-    return Order.findOne({ session: req.session.id, status: 'cart' })
+  return Order.getUserCart(req)
     .then(function(cart) {
-      return cart || -1;
+      return cart;
     })
-    .then(null, function(err) {
-      return -1
+}
+var lookupCartOrCreate = function(req) {
+  return lookupCart(req)
+    .then(function(cart) {
+      if(!cart) {
+        var cartUser = { session: req.session.id }
+        if (req.user) {
+          cartUser = { user: req.user }
+        }
+        cartUser.status = "cart";
+        return new Order(cartUser).save()
+      } else {
+        return cart;
+      }
     })
-  }
-  else // no cart found
-    return Promise.resolve(-1);
 }
 
 // get all orders
@@ -46,21 +46,17 @@ router.get('/', function(req, res, next) {
     .then(function(orders) {
       res.send(orders);
     })
-    .catch(function(err) {
-      next();
-    })
+    .catch(next)
 });
 
 // get order by order ID
-router.get('/id/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   var userId = req.params.id;
   Order.findById(req.params.id)
     .then(function(order) {
       res.send(order);
     })
-    .catch(function(err) {
-      next();
-    });
+    .catch(next);
 });
 
 // get orders by user
@@ -77,41 +73,36 @@ router.get('/user/:id', function(req, res, next) {
 
 // get route for current user
 router.get('/current', function(req, res, next) {
-  lookupCart(req)
-    .then(function(cart) {
-      if (cart != -1) {
-        res.send(cart)
-      } else {
-        // no cart found
-        var cartUser = { session: req.session.id }
-        if (req.user) {
-          cartUser = { user: req.user }
-        }
-        cartUser.status = "cart";
-        new Order(cartUser).save().then(function(cart) {
-          res.json(cart);
-        })
-      }
-    })
+  lookupCart(req).then(res.send)
 })
 
-// save cart
-router.post('/add/:product/:qty', function(req, res, next) {
+router.post('/cart', function(req, res, next) {
+  var prodId = req.body.product;
+  var quantity = req.body.quantity;
+  if(!(quantity && prodId))
+    return res.send(400);
+
+    join(lookupCartOrCreate(req), Product.findById(prodId), function(cart, product) {
+      var price = product.price;
+      cart.items.push({
+        product: product,
+        quantity: quantity,
+        unitPrice: price
+      });
+      cart.save().then(function() {
+        res.sendStatus(204);
+      })
+    })
+    .then(null, next)
+})
+
+
+
+
+router.patch('/cart/:product/:qty', function(req, res, next) {
   var qty = +req.params.qty || 0;
-  if(qty <1) {
-    return res.sendStatus(400);
-  }
   var cartId = lookupCart(req);
-  if(cartId == -1) {
-    return res.sendStatus(400);
+  if(qty<1) {
+
   }
-  var cart = Order.findById(cartId);
-  cart.items.push({
-    product: req.params.product,
-    quantity: qty
-  });
-  cart.save().then(function() {
-    res.sendStatus(202)
-  })
-  .then(null, next)
-});
+})
