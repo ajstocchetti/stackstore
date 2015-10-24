@@ -26,10 +26,10 @@ var productSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	unitOfSale : [{
+	unitOfSale : {
 		amount: Number,
 		unit: String
-	}],
+	},
 	price: {
 		type: Number
 	},

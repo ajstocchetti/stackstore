@@ -9,15 +9,15 @@ var router = require('express').Router(),
 var Product = require('../../db/models/product');
 
 
-
-
 router.param('productId', function(req, res, next, productId){
  req.productId = productId;
  next();
 });
+
 router.use('/:productId/reviews', require('./reviews.router'));
 
 router.get('/', function (req, res, next) {
+    console.log("in the router");
     Product.find({}).exec()
         .then(function (products) {
             res.json(products);
@@ -25,7 +25,7 @@ router.get('/', function (req, res, next) {
         .then(null, next);
 });
 
-router.get('/:category', function(req, res, next){
+router.get('/category/:category', function(req, res, next){
     Product.find({category: req.params.category}).exec()
         .then(function(products){
             res.json(products);
@@ -42,15 +42,17 @@ router.post('/', function (req, res, next) {
         .then(null, next);
 });
 
-router.get('/:productId', function (req, res, next) {
-    Product.getById(req.productId)
+router.get('/detail/:productId', function (req, res, next) {
+    console.log("hi");
+    Product.findById(req.productId)
         .then(function (product) {
+            console.log(product);
             res.json(product);
         })
         .then(null, next);
 });
 
-router.put('/:productId', function (req, res, next) {
+router.put('/detail/:productId', function (req, res, next) {
     _.extend(req.product, req.body);
     req.product.save()
         .then(function (product) {
@@ -60,7 +62,7 @@ router.put('/:productId', function (req, res, next) {
 });
 
 router.put('/:productId/:operator/:quantity', function (req, res, next) {
-    Product.getById(req.productId)
+    Product.findById(req.productId)
         .then(function (product) {
             product.updateInventory(req.params.operator, req.params.quantity)
             res.json(product);
