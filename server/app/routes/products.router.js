@@ -10,11 +10,17 @@ var Product = require('../../db/models/product');
 
 
 router.param('productId', function(req, res, next, productId){
- req.productId = productId;
- next();
+    Product.findById(productId).exec()
+        .then(function (product) {
+            if (!product) throw HttpError(404);
+            req.product = product;
+            req.productId = productId;
+            next();
+        })
+        .then(null, next);
 });
 
-router.use('/:productId/reviews', require('./reviews.router'));
+router.use('/reviews/:productId', require('./reviews.router'));
 
 router.get('/', function (req, res, next) {
     console.log("in the router");
@@ -80,6 +86,5 @@ router.delete('/:productId', function (req, res, next) {
 
 
 
-router.use('/:productId/review', require('./reviews.router') );
 
 module.exports = router;

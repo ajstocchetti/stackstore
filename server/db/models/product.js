@@ -33,22 +33,30 @@ var productSchema = new mongoose.Schema({
 	price: {
 		type: Number
 	},
-	reviews : [ reviewSchema ]
+	reviews : [ reviewSchema ],
+    ratings: { type: Number }
 
 });
 
-
-
-productSchema.virtual('rating').get(function(){
-	var total = 0;
-
-	this.reviews.forEach(function(review){
-		total+= review.stars;
-	});
-	return total/this.reviews.length;
+productSchema.pre("save", function(next) {
+    var total = 0;
+    this.reviews.forEach(function(review){
+         total += review.stars
+        });
+    this.ratings = total/this.reviews.length;
+    next();
 });
 
-
+//productSchema.pre('save').get(function(){
+//	var total = 0;
+//
+//	this.reviews.forEach(function(review){
+//		total+= review.stars;
+//	});
+//	return total/this.reviews.length;
+//});
+//
+//
 
 
 var Product    = mongoose.model('Product', productSchema);
