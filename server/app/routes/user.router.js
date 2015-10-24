@@ -2,6 +2,7 @@ var User = require('mongoose').model('User');
 var router = require('express').Router();
 var _ = require('lodash')
 var chalk = require('chalk');
+var Promise = require('bluebird');
 
 // Require access middleware functions
 var accessMiddleware = require('./access.middleware'),
@@ -39,7 +40,20 @@ router.get('/', hasAdminRights, function(req, res, next) {
 // Get user profile - right now you can only view your own unless admin
 router.get('/:id', hasUserAccess, function(req, res, next) {
   console.log("getting a specifc user:", req.params.id, req.user.email);
-  res.json(req.requestedUser);
+  var reviewPromise = req.requestedUser.getReviews();
+  var orderPromise = req.requestedUser.getOrders();
+  
+  Promise.join(reviewPromise, orderPromise, function(orders, reviews) {
+    console.log('promise settled')
+    console.log(orders, reviews);
+    var userObj = req.requestedUser.toObject()
+    userObj.orders = orders;
+    userObj.reviews = reviews;
+    console.log(userObj);
+    res.json(userObj);
+  })
+  .then(null, next);
+
 })
 
 

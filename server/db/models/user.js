@@ -3,6 +3,9 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var addressSchema = require('./address.js').address;
 var Order = require('./order');
+var Review = require('./review').reviewModel;
+var Promise = require('bluebird');
+Promise.promisifyAll(mongoose);
 
 var schema = new mongoose.Schema({
   email: {
@@ -95,36 +98,37 @@ schema.path('email').validate(emailVal, "Email is invalid")
 
 // Get orders for a user that is not in cart status
 schema.methods.getOrders = function() {
-  Order.find({ 
+  console.log('getting orders for:', this.email);
+  return Order.find({ 
     user: this._id,
-    status: {
-      $ne: 'cart'
-    }
-  })
-  .then(function(orders) {
-    res.json(orders)
-  })
-  .then(null, next)
+    status: { $ne: 'cart' }
+  }).exec()
+
 };
 
-// Find or create cart...not sure if we cant to do the create part here
-schema.methods.getCart = function() {
-  Order.findOne({ 
-    user: this._id,
-    status: 'cart' 
-  }).exec()
-  .then(function(cart) { // error check for no cart
-    if (!cart) {
-      return Order.create({
-        user: this._id,
-        status: 'cart'
-      })
-    }
-  })
-  .then(function(cart) {
-    res.json(cart);
-  })
+schema.methods.getReviews = function() {
+  console.log('getting reviews for:', this.email);
+  return Review.find({ author: this._id }).exec()
 }
+
+// Find or create cart...not sure if we cant to do the create part here
+// schema.methods.getCart = function() {
+//   Order.findOne({ 
+//     user: this._id,
+//     status: 'cart' 
+//   }).exec()
+//   .then(function(cart) { // error check for no cart
+//     if (!cart) {
+//       return Order.create({
+//         user: this._id,
+//         status: 'cart'
+//       })
+//     }
+//   })
+//   .then(function(cart) {
+//     return cart;
+//   })
+// }
 var User = mongoose.model('User', schema);
 
 
