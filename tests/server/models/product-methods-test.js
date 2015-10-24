@@ -46,7 +46,8 @@ describe('Product Statics', function() {
     describe('Statics', function() {
         describe('getByCategory', function() {
             xit('should return item in the correct category', function() {
-                Product.getByCategory('sports').then(function(result){
+                return Product.getByCategory('sports')
+                    .then(function(result){
                     expect(result[0].category).to.equal('sports')
                 })
             });

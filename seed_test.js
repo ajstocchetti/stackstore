@@ -43,7 +43,7 @@ function randProduct(){
         dateIntroduced: chance.birthday(),
         unitOfSale: { amount: (chance.integer({min:1, max:10})), unit: chance.syllable()},
         picture: randPhoto(),
-        price: chance.dollar({max: 250}),
+        price: chance.floating({min: 0, max: 100, fixed: 2}),
         reviews: _.times(5, randReviews)
         });
 }
@@ -60,14 +60,14 @@ function randUser () {
 
 
 
-function generateAll () {
-    var users = _.times(numUsers, randUser);
-
-    var products = _.times(numProducts, function () {
-        return randProduct();
-    });
-
-}
+//function generateAll () {
+//    var users = _.times(numUsers, randUser);
+//
+//    var products = _.times(numProducts, function () {
+//        return randProduct();
+//    });
+//
+//}
 
 var data = {
     User: _.times(numUsers, randUser),
