@@ -8,7 +8,7 @@ router.use('/products', require('./products.router'));
 
 router.use('/order', require('./orders.router.js'));
 
-router.use('/users', require('./user.router'))
+router.use('/users', require('./user.router'));
 
 
 // Make sure this is after all of
