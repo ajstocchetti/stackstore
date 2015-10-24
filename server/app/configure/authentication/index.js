@@ -5,7 +5,7 @@ var _ = require('lodash');
 var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
-var UserModel = mongoose.model('User');
+var User = mongoose.model('User');
 
 var ENABLED_AUTH_STRATEGIES = [
     'local',
@@ -39,7 +39,7 @@ module.exports = function (app) {
     // When we receive a cookie from the browser, we use that id to set our req.user
     // to a user found in the database.
     passport.deserializeUser(function (id, done) {
-        UserModel.findById(id, done);
+        User.findById(id, done);
     });
 
     // We provide a simple GET /session in order to get session information directly.
@@ -52,6 +52,27 @@ module.exports = function (app) {
             res.status(401).send('No authenticated user.');
         }
     });
+
+// Lets query the db for the email used and let them know if its taken, if not make an account
+app.post('/signup', function (req, res, next) {
+    User.findOne({ email: req.body.email }).exec()
+    .then(function(user) {
+        if (user) {
+            res.sendStatus(409)// Status code for conflict aka email is already taken
+        } else {
+            User.create({
+                email: req.body.email,
+                password: req.body.password
+            })
+            .then(function (user) {
+                req.login(user, function () {
+                    res.status(201).json(user);
+                });
+            })
+        }
+    })
+    .then(null, next);
+});
 
     // Simple /logout route.
     app.get('/logout', function (req, res) {

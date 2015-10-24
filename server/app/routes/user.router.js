@@ -87,6 +87,13 @@ router.put('/makeAdmin/:id', hasAdminRights, function(req, res, next) {
   })
 })
 
+// Users and Admins can view prior orders
+router.get('/user/orders/:id', hasUserAccess, function(req, res, next) {
+  req.requestedUser.getOrders()
+  .then(function(orders) {
+    res.json(orders)
+  })
+})
 
 
 
