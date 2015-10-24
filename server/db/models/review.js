@@ -24,5 +24,6 @@ var Review     = mongoose.model('Review', schema);
 module.exports = Review;
 
 module.exports = {
-    review: schema
+    review: schema,
+    reviewModel: Review
 };

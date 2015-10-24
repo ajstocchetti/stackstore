@@ -41,3 +41,5 @@ schema.path('session').validate(v2, "Order doesn't have an owner")
 
 var Order = mongoose.model('Order', schema);
 Order.on('error', console.log)
+
+module.exports = Order;
