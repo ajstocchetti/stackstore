@@ -2,8 +2,10 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var addressSchema = require('./address.js').address;
-var Order = require('./order');
-var Review = require('./review').reviewModel;
+// var Order = require('./order');
+var Order = mongoose.model('Order');
+// var Review = require('./review').reviewModel;
+var Review = mongoose.model('Review');
 var Promise = require('bluebird');
 Promise.promisifyAll(mongoose);
 
