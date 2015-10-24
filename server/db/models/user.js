@@ -101,7 +101,7 @@ schema.path('email').validate(emailVal, "Email is invalid")
 // Get orders for a user that is not in cart status
 schema.methods.getOrders = function() {
   console.log('getting orders for:', this.email);
-  return Order.find({ 
+  return Order.find({
     user: this._id,
     status: { $ne: 'cart' }
   }).exec()
@@ -115,9 +115,9 @@ schema.methods.getReviews = function() {
 
 // Find or create cart...not sure if we cant to do the create part here
 // schema.methods.getCart = function() {
-//   Order.findOne({ 
+//   Order.findOne({
 //     user: this._id,
-//     status: 'cart' 
+//     status: 'cart'
 //   }).exec()
 //   .then(function(cart) { // error check for no cart
 //     if (!cart) {
@@ -133,5 +133,4 @@ schema.methods.getReviews = function() {
 // }
 var User = mongoose.model('User', schema);
 
-
-User.on('error', console.log)
+// User.on('error', console.log)

@@ -8,10 +8,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, SignupFactory, $state) {
 
     $scope.login = {};
+    $scope.signup = {};
     $scope.error = null;
+    $scope.signupError = null;
 
     $scope.sendLogin = function (loginInfo) {
 
@@ -24,5 +26,19 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         });
 
     };
+
+    $scope.sendSignup = function(userInfo) {
+      $scope.signupError = null;
+
+      SignupFactory.create(userInfo).then(function(errMsg) {
+        if(errMsg == "valid") {
+          AuthService.login(userInfo).then(function () {
+              $state.go('home');
+          })
+      } else {
+          $scope.signupError = errMsg;
+        }
+      })
+    }
 
 });

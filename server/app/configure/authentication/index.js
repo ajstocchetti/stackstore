@@ -65,9 +65,12 @@ app.post('/signup', function (req, res, next) {
                 password: req.body.password
             })
             .then(function (user) {
-                req.login(user, function () {
+                // req.login(user, function () {
                     res.status(201).json(user);
-                });
+                // });
+            })
+            .then(null, function(err) {
+              res.sendStatus(400);
             })
         }
     })
