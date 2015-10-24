@@ -1,3 +1,5 @@
+var config = require("../../config");
+
 module.exports = {
   "DATABASE_URI": "mongodb://localhost:27017/slackstore",
   "SESSION_SECRET": "Optimus Prime is my real dad",
@@ -7,13 +9,13 @@ module.exports = {
     "callbackUrl": "INSERT_TWITTER_CALLBACK_HERE"
   },
   "FACEBOOK": {
-    "clientID": "INSERT_FACEBOOK_CLIENTID_HERE",
-    "clientSecret": "INSERT_FACEBOOK_CLIENT_SECRET_HERE",
-    "callbackURL": "INSERT_FACEBOOK_CALLBACK_HERE"
+    "clientID": config.FACEBOOK.clientID,
+    "clientSecret": config.FACEBOOK.clientSecret,
+    "callbackURL": config.FACEBOOK.callbackURL
   },
   "GOOGLE": {
-    "clientID": "INSERT_GOOGLE_CLIENTID_HERE",
-    "clientSecret": "INSERT_GOOGLE_CLIENT_SECRET_HERE",
-    "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
+    "clientID": config.GOOGLE.clientID,
+    "clientSecret": config.GOOGLE.clientSecret,
+    "callbackURL": config.GOOGLE.callbackURL
   }
 };
