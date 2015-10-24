@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var addressSchema = require('./address.js').address;
+var Order = require('./order');
 
 var schema = new mongoose.Schema({
   email: {
@@ -43,6 +44,11 @@ var schema = new mongoose.Schema({
   }]
 });
 
+
+/*
+   HOOKS
+*/
+
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
 var generateSalt = function() {
@@ -74,11 +80,47 @@ schema.method('correctPassword', function(candidatePassword) {
   return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
+/*
+   VALIDATIONS
+*/
 function emailVal(email) {
   return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
 }
 schema.path('email').validate(emailVal, "Email is invalid")
 
 
+/*
+   CONVENIENCE METHODS
+*/
+
+// Get orders for a user
+schema.methods.getOrders = function() {
+  Order.find({ user: this._id})
+  .then(function(orders) {
+    res.json(orders)
+  })
+  .then(null, next)
+};
+
+// Find or create cart...not sure if we cant to do the create part here
+schema.methods.getCart = function() {
+  Order.findOne({ 
+    user: this._id,
+    status: 'cart' 
+  }).exec()
+  .then(function(cart) { // error check for no cart
+    if (!cart) {
+      return Order.create({
+        user: this._id,
+        status: 'cart'
+      })
+    }
+  })
+  .then(function(cart) {
+    res.json(cart);
+  })
+}
 var User = mongoose.model('User', schema);
+
+
 User.on('error', console.log)
