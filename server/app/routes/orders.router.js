@@ -32,6 +32,14 @@ var lookupCartOrCreate = function(req) {
     })
 }
 
+// get route for current user
+router.get('/current', function(req, res, next) {
+  lookupCart(req)
+  .then(function(cart) {
+    res.send(cart)
+  })
+  .then(null, next)
+});
 
 // get all orders
 router.get('/', function(req, res, next) {
@@ -63,11 +71,6 @@ router.get('/user/:id', function(req, res, next) {
       next();
     });
 });
-
-// get route for current user
-router.get('/current', function(req, res, next) {
-  lookupCart(req).then(res.send)
-})
 
 router.post('/cart', function(req, res, next) {
   var prodId = req.body.product;
