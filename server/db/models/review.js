@@ -3,9 +3,11 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    body: { type: String, required: true },
-    stars: { type: Number, required: true },
-    author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+	body     : { type: String, required: true },
+	stars    : { type: Number, required: true },
+	author   : {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	createdAt: {type: Date},
+	updatedAt: {type: Date}
 
 });
 
@@ -19,6 +21,9 @@ schema.path('body').validate(function(text){
 schema.virtual('snippet').get(function(){
     return this.review.body.slice(0,23) + '...';
 });
+
+
+
 
 var Review     = mongoose.model('Review', schema);
 module.exports = Review;
