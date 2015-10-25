@@ -3,7 +3,7 @@
 var crypto   = require('crypto');
 var mongoose = require('mongoose');
 //var Review   = require('./review');
-var reviewSchema = require('./review.js').review;
+var reviewSchema = require('./review.js');
 
 var productSchema = new mongoose.Schema({
 	name:{

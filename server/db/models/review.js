@@ -23,6 +23,3 @@ schema.virtual('snippet').get(function(){
 var Review     = mongoose.model('Review', schema);
 module.exports = Review;
 
-module.exports = {
-    review: schema
-};
