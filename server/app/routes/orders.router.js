@@ -1,6 +1,5 @@
 'use strict';
 var router = require('express').Router();
-var join = require('bluebird').join;
 var mongoose = require('mongoose');
 // require('../../db/models')
 var Order = mongoose.model('Order');
