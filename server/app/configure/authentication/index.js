@@ -53,29 +53,29 @@ module.exports = function (app) {
         }
     });
 
-// Lets query the db for the email used and let them know if its taken, if not make an account
-app.post('/signup', function (req, res, next) {
-    User.findOne({ email: req.body.email }).exec()
-    .then(function(user) {
-        if (user) {
-            res.sendStatus(409)// Status code for conflict aka email is already taken
-        } else {
-            User.create({
-                email: req.body.email,
-                password: req.body.password
-            })
-            .then(function (user) {
-                // req.login(user, function () {
-                    res.status(201).json(user);
-                // });
-            })
-            .then(null, function(err) {
-              res.sendStatus(400);
-            })
-        }
-    })
-    .then(null, next);
-});
+    // Lets query the db for the email used and let them know if its taken, if not make an account
+    app.post('/signup', function (req, res, next) {
+        User.findOne({ email: req.body.email }).exec()
+        .then(function(user) {
+            if (user) {
+                res.sendStatus(409)// Status code for conflict aka email is already taken
+            } else {
+                User.create({
+                    email: req.body.email,
+                    password: req.body.password
+                })
+                .then(function (user) {
+                    // req.login(user, function () {
+                        res.status(201).json(user);
+                    // });
+                })
+                .then(null, function(err) {
+                  res.sendStatus(400);
+                })
+            }
+        })
+        .then(null, next);
+    });
 
     // Simple /logout route.
     app.get('/logout', function (req, res) {
