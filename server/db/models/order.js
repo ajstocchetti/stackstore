@@ -34,10 +34,10 @@ var schema = new mongoose.Schema({
 schema.statics.getUserCart = function(req) {
   var searches = [];
   if(req.user && req.user._id) {
-    searches.push(this.model('Order').find({ user: req.user._id }))
+    searches.push(this.model('Order').find({ user: req.user._id, status: 'cart' }))
   }
   if(req.session && req.session.id) {
-    searches.push(this.model('Order').find({ session: req.session.id }))
+    searches.push(this.model('Order').find({ session: req.session.id, status: 'cart' }))
   }
   return Promise.all(searches).then(function(vals) {
     for(var x=0; x<vals.length; x++) {
@@ -47,6 +47,54 @@ schema.statics.getUserCart = function(req) {
     }
     return null;
   })
+}
+
+// when a user logs in, update their cart with their user
+schema.statics.signInCart = function(req) {
+  if( !req.user || !req.session ) {
+    // user or session missing
+    return null;
+  }
+  var searches = [
+    this.model('Order').find({ session: req.session.id, status: 'cart' }),
+    this.model('Order').find({ user: req.user._id, status: 'cart' })
+  ]
+  return Promise.all(searches).then(function(carts) {
+    var newCart = new this.model('Order')({
+      user: req.user._id;
+      status: 'cart'
+    });
+    var allCarts = carts[0].concat(carts[1]);
+    allCarts.forEach(function(cart) {
+      cart.items.forEach(function(item) {
+        newCart.updateCart(item.product, item.quantity)
+      });
+      this.model('Order').remove({ _id: cart._id }).exec();
+    })
+
+    // varr allProducts = [];
+    // var allCarts = carts[0].concat(carts[1]);
+    // allCarts.reduce(function(allProducts, cart) {
+    //   cart.items.reduce(function(allProducts, item) {
+    //     allProducts.push(item);
+    //   })
+    // })
+    //
+    // var newCart = new this.model('Order')({
+    //   user: req.user._id;
+    //   status: 'cart'
+    // });
+    // allProducts.forEach(function(item) {
+    //   newCart.updateCart(item.product, item.quantity);
+    // })
+    // // now remove any old carts
+    // allCarts.forEach(function(cart) {
+    //   this.model('Order').remove({ _id: cart._id }).exec();
+    // })
+    return newCart;
+  })
+
+
 }
 
 schema.methods.updateCart = function(productId, quantity) {
