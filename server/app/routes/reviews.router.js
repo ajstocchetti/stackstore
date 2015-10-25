@@ -52,9 +52,15 @@ router
 
 	//add a new review
 	.post('/', function(req, res, next){
+		console.log('posting a new review!!');
+		var rightNow        = Date.now()
+		var newReview       = req.body
+		newReview.createdAt = rightNow;
+		newReview.updatedAt = rightNow;
+
 		Product.findById(req.productId)
 			.then(function(product){
-				product.reviews.push(req.body)
+				product.reviews.push(newReview)
 				console.log('product',product);
 				return product
 			})
@@ -71,7 +77,14 @@ router
 
 	//edit a review | Needs Auth functionality
 	.put('/:reviewId', function(req, res, next){
-		var insertData = req.body
+		var rightNow = Date.now()
+		
+		var insertData = {
+			body: req.body.body,
+			stars: req.body.stars,
+			updatedAt: rightNow
+		};
+
 		Product.findById(req.productId)
 		.then(function(product){
 			var review = product.reviews.id(req.params.reviewId)
