@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var addressSchema = require('./address.js').address;
+var _ = require('lodash');
 
 var schema = new mongoose.Schema({
   status: {
@@ -46,6 +47,29 @@ schema.statics.getUserCart = function(req) {
     }
     return null;
   })
+}
+
+schema.methods.updateCart = function(productId, quantity) {
+  var index = _.pluck(this.items, 'product')
+    .map(function(obj) { return obj.toString() })
+    .indexOf(productId);
+
+  if(quantity>0) {
+    if(index != -1) {
+      this.items[index].quantity = quantity;
+    } else {
+      // need to add price
+      this.items.push({
+        product: productId,
+        quantity: quantity
+      });
+    }
+  } else {
+    if(index != -1) {
+      this.items.splice(index,1);
+    }
+  }
+  return this.save()
 }
 
 var Order = mongoose.model('Order', schema);

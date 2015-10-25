@@ -10,14 +10,6 @@ module.exports = router;
 // var _ = require('lodash');
 
 
-router.get('/test', function(req, res) {
-  console.log(Promise.join)
-  return Order.getUserCart(req).then(function(x) {
-    res.send(x)
-  })
-});
-
-
 var lookupCart = function(req) {
   return Order.getUserCart(req)
     .then(function(cart) {
@@ -39,6 +31,7 @@ var lookupCartOrCreate = function(req) {
       }
     })
 }
+
 
 // get all orders
 router.get('/', function(req, res, next) {
@@ -82,27 +75,27 @@ router.post('/cart', function(req, res, next) {
   if(!(quantity && prodId))
     return res.send(400);
 
-    join(lookupCartOrCreate(req), Product.findById(prodId), function(cart, product) {
-      var price = product.price;
-      cart.items.push({
-        product: product,
-        quantity: quantity,
-        unitPrice: price
-      });
-      cart.save().then(function() {
-        res.sendStatus(204);
+  lookupCartOrCreate(req).then(function(cart) {
+    cart.updateCart(prodId, quantity)
+      .then(function(cart) {
+        res.send(cart);
       })
+      .catch(null, next)
     })
-    .then(null, next)
+    .catch(null, next)
 })
 
+router.delete('/cart', function(req, res, next) {
+  var prodId = req.body.product;
+  if(!prodId)
+    return res.send(400);
 
-
-
-router.patch('/cart/:product/:qty', function(req, res, next) {
-  var qty = +req.params.qty || 0;
-  var cartId = lookupCart(req);
-  if(qty<1) {
-
-  }
+  lookupCart(req).then(function(cart) {
+    cart.updateCart(prodId, 0)
+      .then(function(cart) {
+        res.send(cart);
+      })
+      .catch(null, next)
+    })
+    .catch(null, next)
 })
