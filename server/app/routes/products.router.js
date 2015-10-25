@@ -20,7 +20,7 @@ router.param('productId', function(req, res, next, productId){
         .then(null, next);
 });
 
-router.use('/reviews/:productId', require('./reviews.router'));
+router.use('/:productId/reviews', require('./reviews.router'));
 
 router.get('/', function (req, res, next) {
     console.log("in the router");
