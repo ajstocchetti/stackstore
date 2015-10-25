@@ -61,7 +61,7 @@ schema.statics.signInCart = function(req) {
   ]
   return Promise.all(searches).then(function(carts) {
     var newCart = new this.model('Order')({
-      user: req.user._id;
+      user: req.user._id,
       status: 'cart'
     });
     var allCarts = carts[0].concat(carts[1]);
