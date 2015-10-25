@@ -83,6 +83,29 @@ module.exports = function (app) {
         res.status(200).end();
     });
 
+    app.post('/reset', function(req, res, next) {
+        console.log("in reset route");
+        User.findOne({ 
+            email: req.body.email,
+            passwordResetTriggered: true 
+        }).select('+password +salt +passwordResetTriggered').exec()
+        .then(function(user) {
+            if (!user || !user.correctPassword(req.body.oldPassword)) {
+                return res.sendStatus(404);
+            }
+            console.log("About to update password")
+            user.password = req.body.password;
+            user.passwordResetTriggered = false;
+            user.save()
+        })
+        .then(function(user) {
+            console.log("successful save")
+            res.sendStatus(200);
+        })
+        .then(null, next)
+
+    })
+
     // Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {
         require(path.join(__dirname, strategyName))(app);

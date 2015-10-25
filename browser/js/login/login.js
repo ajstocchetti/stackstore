@@ -19,8 +19,14 @@ app.controller('LoginCtrl', function ($scope, AuthService, SignupFactory, $state
 
         $scope.error = null;
 
-        AuthService.login(loginInfo).then(function () {
-            $state.go('home');
+        AuthService.login(loginInfo).then(function (result) {
+            if (result && result.message === "reset") {
+              console.log("reset needed");
+              console.log(result);
+              $state.go('resetPassword', { email: result.data });
+            } else {
+              $state.go('home');
+            }
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

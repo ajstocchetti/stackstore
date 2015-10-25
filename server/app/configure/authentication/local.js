@@ -41,7 +41,8 @@ module.exports = function (app) {
             }
             // for pasword resets
             if (user.passwordResetTriggered) {
-                return res.sendStatus(205) // Front end should trigger a reset password form with this
+                console.log(user.email);
+                return res.status(205).json(user.email) // Front end should trigger a reset password form with this
             }
 
             // req.logIn will establish our session.

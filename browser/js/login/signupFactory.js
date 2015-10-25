@@ -10,13 +10,13 @@ app.factory('SignupFactory', function($http) {
         .then(function(resp) {
           if(resp.status === 201) {
             return "valid";
-          } else if(resp.status === 409) {
-            return "Email already exists";
-          } else {
-            return "Error creating user";
           }
         })
         .catch(function(err) {
+          console.log(err);
+          if (err.status === 409) {
+            return "Email already exists";
+          }
           return "Error creating user";
         })
     }
