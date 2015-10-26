@@ -4,10 +4,10 @@
 /**
  * Created by uzer-y on 10/24/15.
  */
-app.factory('Review', function ($http) {
+app.factory('ReviewsFactory', function ($http) {
     return {
         getAll: getAll,
-        getOne: getOne,
+        getOne: getOne
     };
 
     function getAll(productId) {
@@ -34,6 +34,7 @@ app.factory('Review', function ($http) {
             author: review.author,
             date: Date.now()
         };
+
         return $http.post('/api/products/reviews/' + productID, config )
             .then(function (results) {
                 return results.data;

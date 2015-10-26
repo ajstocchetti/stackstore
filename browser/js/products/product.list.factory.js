@@ -5,7 +5,7 @@ app.factory('ProductList', function ($http) {
     return {
         getAll: getAll,
         getOne: getOne,
-        getCategory: getCategory,
+        getCategory: getCategory
     };
 
     function getOne(id) {

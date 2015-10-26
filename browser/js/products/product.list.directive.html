@@ -4,8 +4,9 @@
         <img src="{{product.image}}" alt="Smiley face" height="42" width="42">
         <a ui-sref='productDetail({ id: product._id })'>{{product.name}}</a>
     </h1>
-    <h4>{{product.price}}</h4>
-    <h4>{{product.ratings}}</h4>
+    <h4>Price: {{product.price | currency}}</h4>
+
+    <a ui-sref='reviewsList({ id: product._id })'>{{product.ratings}}</a>
 
     <h4 ng-repeat="category in product.category">
         {{category}}
