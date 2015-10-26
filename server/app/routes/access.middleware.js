@@ -14,18 +14,16 @@ module.exports = {
     You can only access your own user info unless an admin
   */
   hasUserAccess: function(req, res, next) {
-    console.log("checking user access rights for me:", req.user.email)
     if (req.user._id == req.requestedUser._id || req.user.isAdmin) {
       next()
     }
     else {
-      res.status(401).send('Gotta be an admin or a user for this')
+      res.status(401).send('Gotta be an admin or the user for this')
     }
   },
 
   // Only admins can get past this
   hasAdminRights: function(req, res, next) {
-    console.log("checking admin rights for me:", req.user.email);
     if (req.user.isAdmin) {
       next()
     } else {

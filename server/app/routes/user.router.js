@@ -23,7 +23,6 @@ router.param('id', function (req, res, next, id) {
   .then(function (user) {
     if (!user) throw new Error(404);
     req.requestedUser = user;
-    console.log("requested user is:", req.requestedUser.email)
     next();
   })
   .then(null, next);
@@ -47,17 +46,13 @@ router.get('/me', function(req, res, next) {
 
 // Get user profile - right now you can only view your own unless admin
 router.get('/:id', hasUserAccess, function(req, res, next) {
-  console.log("getting a specifc user:", req.params.id, req.user.email);
   var reviewPromise = req.requestedUser.getReviews();
   var orderPromise = req.requestedUser.getOrders();
   
   Promise.join(reviewPromise, orderPromise, function(orders, reviews) {
-    console.log('promise settled')
-    console.log(orders, reviews);
     var userObj = req.requestedUser.toObject()
     userObj.orders = orders;
     userObj.reviews = reviews;
-    console.log(userObj);
     res.json(userObj);
   })
   .then(null, next);
@@ -69,7 +64,6 @@ router.get('/:id', hasUserAccess, function(req, res, next) {
 // EDIT user - Can only edit username, email and addresses for now ...
 // Note: Need to send addresses as an array to update
 router.put('/:id', hasUserAccess, function(req, res, next) {
-  console.log('updating a specifc user:', req.params.id, req.user.email);
   delete req.body.passwordResetTriggered;
   delete req.body.isAdmin;
   _.extend(req.requestedUser, req.body);
@@ -127,7 +121,6 @@ router.put('/admin/makeAdmin/:id', hasAdminRights, function(req, res, next) {
 
 // Admin route to trigger password reser for a user
 router.put('/admin/reset/:id', hasAdminRights, function(req, res, next) {
-  console.log("triggering password reset")
   req.requestedUser.passwordResetTriggered = true;
   req.requestedUser.save()
   .then(function(user) {

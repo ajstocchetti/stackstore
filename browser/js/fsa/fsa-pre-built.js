@@ -53,7 +53,6 @@
         function onSuccessfulLogin(response) {
             // check if password needs to be reset - triggered by 205 status code
             if (response.status === 205) { 
-                console.log("received response", response)
                 return { message: "reset" }
             } else {
                 var data = response.data;

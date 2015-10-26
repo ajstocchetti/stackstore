@@ -21,9 +21,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, SignupFactory, $state
 
         AuthService.login(loginInfo).then(function (result) {
             if (result && result.message === "reset") {
-              console.log("reset needed");
-              console.log(result);
-              $state.go('resetPassword', { email: result.data });
+              $state.go('resetPassword');
             } else {
               $state.go('home');
             }
