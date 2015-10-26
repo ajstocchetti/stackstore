@@ -10,9 +10,10 @@ module.exports = function (app) {
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
-        User.findOne({ email: email }).select('+password +salt')
+        User.findOne({ email: email }).select('+password +salt +passwordResetTriggered')
             .then(function (user) {
                 // user.correctPassword is a method from the User schema.
+                // console.log(user);
                 if (!user || !user.correctPassword(password)) {
                     done(null, false);
                 } else {
@@ -38,13 +39,19 @@ module.exports = function (app) {
                 error.status = 401;
                 return next(error);
             }
+            // for pasword resets
+            if (user.passwordResetTriggered) {
+                console.log(user.email);
+                return res.status(205).json(user.email) // Front end should trigger a reset password form with this
+            }
 
             // req.logIn will establish our session.
             req.logIn(user, function (loginErr) {
                 if (loginErr) return next(loginErr);
+
                 // We respond with a response object that has user with _id and email.
                 res.status(200).send({
-                    user: _.omit(user.toJSON(), ['password', 'salt'])
+                    user: _.omit(user.toJSON(), ['password', 'salt', 'passwordResetTriggered'])
                 });
             });
 

@@ -43,6 +43,10 @@ var schema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  passwordResetTriggered: {
+    type: Boolean,
+    select: false
+  },
   addresses: [addressSchema],
   productsPurchased: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'Product'
