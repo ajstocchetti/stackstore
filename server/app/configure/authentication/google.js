@@ -24,6 +24,7 @@ module.exports = function (app) {
                     return user;
                 } else {
                     return UserModel.create({
+                        email: profile.email || profile.emails[0].value,
                         google: {
                             id: profile.id
                         }
