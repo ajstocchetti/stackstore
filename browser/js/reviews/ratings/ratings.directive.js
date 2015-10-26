@@ -1,15 +1,18 @@
 /**
+ * Created by uzer-y on 10/26/15.
+ */
+/**
  * Created by uzer-y on 10/24/15.
  */
 
-app.directive('reviewList', function () {
+app.directive('starRatings', function () {
     return {
-        restrict: 'E',
+        restrict: 'EA',
+        templateUrl: '/js/reviews/ratings/ratings.directive.html',
         scope: {
-            review: '=',
+            product: '=',
             readonly: '='
         },
-        templateUrl: '/js/reviews/reviews.directive.html',
         link: function(scope, element, attributes){
             function updateStars() {
                 scope.stars = [];
@@ -17,7 +20,7 @@ app.directive('reviewList', function () {
                 for (var i = 0; i < scope.max; i++) {
                     scope.stars.push(
                         {
-                            filled: i < scope.review.stars
+                            filled: i < scope.product.ratings
                         });
                 }
             }
@@ -29,7 +32,7 @@ app.directive('reviewList', function () {
             //        });
             //    }
             //};
-            scope.$watch('review.stars', function(oldValue, newValue){
+            scope.$watch('product.ratings', function(oldValue, newValue){
                 if (newValue) {
                     console.log("yo");
                     updateStars()

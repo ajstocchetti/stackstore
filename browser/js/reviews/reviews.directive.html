@@ -1,9 +1,14 @@
 
 <div class="item col-md-6" >
-    <div ng-repeat="(key, item) in review">
-        <h5>{{key}} : {{item}}</h5>
-        <!--<h3> {{item.author}} said: {{item.body}} </h3>-->
-        <!--<h3> item.stars</h3>-->
+    <div ng-repeat="(key,item) in review">
+       {{key}}:{{item}}
+        <!--<h5>{{key}} : {{item}}</h5>-->
     </div>
+    <ul class="star-rating" ng-class="{readonly: readonly}">
+        <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" >
+            <i>&#9734</i>
+        </li>
+        <!--<li>{{stars}}</li>-->
+    </ul>
 
 </div>
