@@ -7,6 +7,7 @@
     <h4>Price: {{product.price | currency}}</h4>
 
     <a ui-sref='reviewsList({ id: product._id })'>{{product.ratings}}</a>
+    <star-ratings product ="product" readonly="rating.isReadOnly"> </star-ratings>
 
     <h4 ng-repeat="category in product.category">
         {{category}}
