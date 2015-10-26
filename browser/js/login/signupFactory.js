@@ -5,7 +5,7 @@ app.factory('SignupFactory', function($http) {
           email: user.email,
           password: user.password
       }
-
+      // any status code not in the 200s is counted as and error and drops to the catch
       return $http.post('/signup', config)
         .then(function(resp) {
           if(resp.status === 201) {

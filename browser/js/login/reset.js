@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
 
 app.controller('ResetCtrl', function($scope, userEmail, AuthService, $state) {
   $scope.error = null;
-  $scope.reset = {};
+  $scope.reset = {}; 
 
   // If password  is reset successfully, then log them in
   $scope.sendReset = function(credentials){

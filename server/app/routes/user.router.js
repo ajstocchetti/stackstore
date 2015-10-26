@@ -3,7 +3,7 @@ var router = require('express').Router();
 var _ = require('lodash')
 var chalk = require('chalk');
 var Promise = require('bluebird');
-var adminRouter = require('./admin.router');
+
 
 // Require access middleware functions
 var accessMiddleware = require('./access.middleware'),
@@ -111,31 +111,9 @@ router.get('/user/orders/:id', hasUserAccess, function(req, res, next) {
 
 
 
-
-
-// For debugging
-router.get('/admin/makeMeAdmin',  function(req, res, next) {
-  req.user.isAdmin = true;
-  req.user.save()
-  .then(function(user) {
-    res.json('you now have admin rights');
-  })
-})
-
-// fordebuggin as well
-router.get('/admin/user/:id',  function(req, res, next) {
-  User.findById(req.requestedUser._id).select('+password')
-  .then(function(user) {
-    user.password = "test";
-    console.log('password changed');
-    return user.save()
-  })
-  .then(function(user) {
-    console.log("user saved");
-     res.json(user);
-  })
-  // res.json(req.requestedUser)
-})
+/*
+    ADMIN ONLY ROUTES
+*/
 
 
 // ADMIN route to make other admins!!!
@@ -147,6 +125,7 @@ router.put('/admin/makeAdmin/:id', hasAdminRights, function(req, res, next) {
   })
 })
 
+// Admin route to trigger password reser for a user
 router.put('/admin/reset/:id', hasAdminRights, function(req, res, next) {
   console.log("triggering password reset")
   req.requestedUser.passwordResetTriggered = true;
