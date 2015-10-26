@@ -1,0 +1,11 @@
+<div class="product-container">
+    <div>
+        <h1>Review List</h1>
+        <h2>{{product.name}}</h2>
+        <div ng-repeat = "review in product.reviews">
+            <review-list review = "review"></review-list>
+
+            <!--<li ng-repeat="product in products">-->
+            <!--<a ui-sref='productDetail({ id: product._id })'>{{product.name}}</a></li>-->
+        </div>
+    </div>
