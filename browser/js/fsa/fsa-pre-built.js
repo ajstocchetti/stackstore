@@ -51,10 +51,15 @@
     app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
-            var data = response.data;
-            Session.create(data.id, data.user);
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            return data.user;
+            // check if password needs to be reset - triggered by 205 status code
+            if (response.status === 205) { 
+                return { message: "reset" }
+            } else {
+                var data = response.data;
+                Session.create(data.id, data.user);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                return data.user;
+            }
         }
 
         // Uses the session factory to see if an
@@ -100,6 +105,14 @@
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         };
+        // makes call to reset route with email, password and new password
+        this.resetPassword = function(credentials) {
+            return $http.post('/reset', credentials).then(function(response) {
+                return response.data
+            }).catch(function() {
+                return $q.reject({ message: 'Invalid login credentials.' });
+            })
+        }
 
     });
 
