@@ -17,7 +17,7 @@ var schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
     select: false
   },
   salt: {
@@ -117,24 +117,6 @@ schema.methods.getReviews = function() {
   return Review.find({ author: this._id }).exec()
 }
 
-// Find or create cart...not sure if we cant to do the create part here
-// schema.methods.getCart = function() {
-//   Order.findOne({
-//     user: this._id,
-//     status: 'cart'
-//   }).exec()
-//   .then(function(cart) { // error check for no cart
-//     if (!cart) {
-//       return Order.create({
-//         user: this._id,
-//         status: 'cart'
-//       })
-//     }
-//   })
-//   .then(function(cart) {
-//     return cart;
-//   })
-// }
 var User = mongoose.model('User', schema);
 
 // User.on('error', console.log)
