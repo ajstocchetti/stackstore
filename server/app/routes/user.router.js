@@ -1,3 +1,5 @@
+// 'use strict';
+
 var User = require('mongoose').model('User');
 var router = require('express').Router();
 var _ = require('lodash')
@@ -7,7 +9,7 @@ var Promise = require('bluebird');
 
 // Require access middleware functions
 var accessMiddleware = require('./access.middleware'),
-    hasAdminRights = accessMiddleware.hasAdminRights,
+    isAdmin = accessMiddleware.isAdmin,
     hasUserAccess = accessMiddleware.hasUserAccess,
     isAuthenticated = accessMiddleware.isAuthenticated;
 
@@ -29,7 +31,7 @@ router.param('id', function (req, res, next, id) {
 });
 
 
-router.get('/', hasAdminRights, function(req, res, next) {
+router.get('/', isAdmin, function(req, res, next) {
   User.find({ 
     isAdmin: false
   })
@@ -39,10 +41,6 @@ router.get('/', hasAdminRights, function(req, res, next) {
   .then(null, next)
 })
 
-router.get('/me', function(req, res, next) {
-  console.log("me");
-  res.json(req.user);
-})
 
 // Get user profile - right now you can only view your own unless admin
 router.get('/:id', hasUserAccess, function(req, res, next) {
@@ -111,7 +109,7 @@ router.get('/user/orders/:id', hasUserAccess, function(req, res, next) {
 
 
 // ADMIN route to make other admins!!!
-router.put('/admin/makeAdmin/:id', hasAdminRights, function(req, res, next) {
+router.put('/admin/makeAdmin/:id', isAdmin, function(req, res, next) {
   req.requestedUser.isAdmin = true;
   req.requestedUser.save()
   .then(function(user) {
@@ -120,7 +118,7 @@ router.put('/admin/makeAdmin/:id', hasAdminRights, function(req, res, next) {
 })
 
 // Admin route to trigger password reser for a user
-router.put('/admin/reset/:id', hasAdminRights, function(req, res, next) {
+router.put('/admin/reset/:id', isAdmin, function(req, res, next) {
   req.requestedUser.passwordResetTriggered = true;
   req.requestedUser.save()
   .then(function(user) {

@@ -33,7 +33,7 @@ module.exports = function (app) {
         var authCb = function (err, user) {
 
             if (err) return next(err);
-
+            // if a user is not returned from 
             if (!user) {
                 var error = new Error('Invalid login credentials.');
                 error.status = 401;
@@ -41,7 +41,7 @@ module.exports = function (app) {
             }
             // for pasword resets
             if (user.passwordResetTriggered) {
-                console.log(user.email);
+                // double check status code
                 return res.status(205).json(user.email) // Front end should trigger a reset password form with this
             }
 
