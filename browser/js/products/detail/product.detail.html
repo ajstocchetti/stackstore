@@ -1,10 +1,19 @@
 <div class="product-detail-container">
     <div>
         <h1>Product Detail</h1>
-        <ul>
-            <li ng-repeat="properties in product">
-                <a>{{properties}}</a></li>
+        {{ cart  }}
+        <ul ng-repeat="(key, properties) in product">
+            <li>{{key}}: {{properties}}</li>
         </ul>
+        <form >
+            <button class="btn-submit" type="submit" ng-click="update(product._id, QTY)">{{update}}Add to Cart</button>
+            <label for="QTY" >Quantity:</label>
+             <input ng-model='QTY' class="QTY" type="number" id="QTY" name="QTY">
+
+        </form>
+        <div ng-repeat = "review in product.reviews">
+            <review-list review = "review" readonly="rating.isReadOnly"></review-list>
+        </div>
 
     </div>
 </div>

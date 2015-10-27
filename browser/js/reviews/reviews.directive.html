@@ -1,11 +1,11 @@
 
 <div class="item col-md-6" >
-    <div ng-repeat="(key,item) in review">
-       {{key}}:{{item}}
-        <!--<h5>{{key}} : {{item}}</h5>-->
+    <div >
+       <h3>Author: {{review.author}}</h3>
+       <h4>Comments: {{review.body}}</h4>
     </div>
     <ul class="star-rating" ng-class="{readonly: readonly}">
-        <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" >
+        {{review.stars}}<li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" >
             <i>&#9734</i>
         </li>
         <!--<li>{{stars}}</li>-->
