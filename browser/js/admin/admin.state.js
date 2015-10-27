@@ -2,8 +2,8 @@
 
 app.config(function ($stateProvider) {
     $stateProvider
-        .state('admin', {
-            url: '/admin',
+        .state('admin-panel', {
+            url: '/admin-panel',
             templateUrl: 'js/admin/admin-panel.html',
             controller: 'adminPanelCtrl',
             resolve: {
