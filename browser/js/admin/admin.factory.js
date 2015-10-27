@@ -27,5 +27,12 @@ app.factory('AdminFactory', function( $http ) {
 			})
 	};
 
+	function updateOrderStatus (orderId, data) {
+		http.put('/api/order/' + orderId, data)
+		.then(function(response) {
+			return response.data;
+		})
+	}
+
 
 });
