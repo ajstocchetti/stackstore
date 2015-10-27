@@ -7,12 +7,14 @@ app.config(function ($stateProvider) {
             templateUrl: 'js/admin/admin-panel.html',
             controller: 'adminPanelCtrl',
             resolve: {
-                users: function(AdminFactory){
-                        // console.log('here I am');
-                        return AdminFactory.getAllUsers()
+                users: function(AdminFactory) {
+                    return AdminFactory.getAllUsers()
+                },
+                orders: function(AdminFactory) {
+                    return AdminFactory.getAllOrders();
                 }
             }
-        })
+        });
 
-        
+
 });

@@ -4,8 +4,8 @@
 app.factory('AdminFactory', function( $http ) {
 	
 	var service =  {
-		getAllUsers   : getAllUsers
-		// gettAllOrders : gettAllOrders
+		getAllUsers : getAllUsers,
+		getAllOrders: getAllOrders
 	};
 
 	
@@ -20,12 +20,12 @@ app.factory('AdminFactory', function( $http ) {
 			});
 	};
 
-	// function getAllOrders () {
-	// 	return $http.get('api/orders/')
-	// 		.then(function(order){
-	// 			return order.data;
-	// 		})
-	// };
+	function getAllOrders () {
+		return $http.get('/api/order/')
+			.then(function(order){
+				return order.data;
+			})
+	};
 
 
 });
