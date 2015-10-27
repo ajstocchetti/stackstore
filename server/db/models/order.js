@@ -72,8 +72,26 @@ schema.methods.updateCart = function(productId, quantity) {
   return this.save()
 }
 
-schema.virtuals('totalPrice').get(function() {
-  return _.pluck(this.items, 'quantity'
+schema.statics.findPopulatedOrder = function(id) {
+  return this.model('Order').findById(id).populate('user')
+  .then(function(order) {
+    var options = {
+      path: 'items.product',
+      model: 'Product'
+    };
+    return Order.populate(order, options)
+  })
+}
+
+
+// this only works when the items are populated
+schema.virtual('totalPrice').get(function() {
+  if (this.items.length === 0) return 0
+  return this.items.map(function(item) {
+    return item.product.price * item.quantity;
+  }).reduce(function(prev, curr) {
+    return prev + curr;
+  })
 })
 var Order = mongoose.model('Order', schema);
 Order.on('error', console.log)
