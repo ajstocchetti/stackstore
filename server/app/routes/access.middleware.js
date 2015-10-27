@@ -23,7 +23,7 @@ module.exports = {
   },
 
   // Only admins can get past this
-  hasAdminRights: function(req, res, next) {
+  isAdmin: function(req, res, next) {
     if (req.user.isAdmin) {
       next()
     } else {
