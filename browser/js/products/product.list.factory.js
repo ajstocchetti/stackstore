@@ -5,7 +5,8 @@ app.factory('ProductList', function ($http) {
     return {
         getAll: getAll,
         getOne: getOne,
-        getCategory: getCategory
+        getByCategory: getByCategory,
+        products: []
     };
 
     function getOne(id) {
@@ -17,21 +18,24 @@ app.factory('ProductList', function ($http) {
     }
 
     function getAll() {
+        var self = this;
         console.log('got inside getAll');
         return $http.get('/api/products/')
             .then(function (results) {
+                self.products = results.data;
                 return results.data;
             });
 
     }
 
-    function getCategory(cat) {
-        return $http.get('/api/products/' + cat)
+    function getByCategory(cat) {
+        return $http.get('/api/products/category/' + cat)
             .then(function (results) {
                 console.log(results.data);
                 return results.data;
             });
     }
+
 
 
 
