@@ -7,7 +7,9 @@ var router = require('express').Router()
 router.get('/:id', function(req, res, next) {
   Order.findPopulatedOrder(req.params.id)
   .then(function(order) {
-
+    if (order.user && req.user._id !== order.user._id){
+      res.sendStatus(401);
+    }
     // Add logic to store or retrieve saved tokens for users.
 
     makeCharge(order, req.body.stripeToken).then(function(result) {

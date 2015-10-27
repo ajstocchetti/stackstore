@@ -38,7 +38,7 @@ var schema = new mongoose.Schema({
     id: String,
     select: false
   },
-  billingToken: {
+  stripeToken: {
     type: String,
     select: false
   },
