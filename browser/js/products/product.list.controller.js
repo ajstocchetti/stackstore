@@ -13,4 +13,29 @@ app.controller('productListCtrl', function($scope, ProductList, products) {
         return ProductList.getOne(id)
     };
 
+    $scope.categories = function(){
+        console.log('heynow')
+        var arr = [];
+        $scope.products.forEach(function(product){
+            product.category.forEach(function(category){
+                if ( arr.indexOf(category) == -1){
+                    arr.push(category)
+                }
+            })
+        });
+        return arr
+    }();
+
+    $scope.activeCat = null;
+
+    $scope.filterByCategory = function (cat) {
+        $scope.activeCat = cat;
+        $scope.products = null;
+        ProductList.getByCategory(cat)
+            .then(function (items) {
+                console.log(items);
+                $scope.products = items;
+            });
+    };
+
 });
