@@ -2,7 +2,6 @@
  * Created by uzer-y on 10/24/15.
  */
 
-
 app.config(function ($stateProvider) {
     $stateProvider
         .state('productList', {
@@ -11,7 +10,7 @@ app.config(function ($stateProvider) {
             controller: 'productListCtrl',
             resolve: {
                 products: function(ProductList){
-                        console.log('here I am');
+                        // console.log('here I am');
                         return ProductList.getAll()
                 }
             }
