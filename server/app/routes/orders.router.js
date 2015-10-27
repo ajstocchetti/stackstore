@@ -8,6 +8,10 @@ var Product = mongoose.model('Product');
 module.exports = router;
 // var _ = require('lodash');
 
+// Require access middleware functions
+var accessMiddleware = require('./access.middleware'),
+    hasAdminRights = accessMiddleware.hasAdminRights
+
 
 var lookupCart = function(req) {
   return Order.getUserCart(req)
@@ -41,7 +45,7 @@ router.get('/current', function(req, res, next) {
 });
 
 // get all orders
-router.get('/', function(req, res, next) {
+router.get('/', hasAdminRights, function(req, res, next) {
   Order.find()
     .then(function(orders) {
       res.send(orders);
