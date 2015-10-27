@@ -17,5 +17,8 @@ module.exports = {
     "clientID": config.GOOGLE.clientID,
     "clientSecret": config.GOOGLE.clientSecret,
     "callbackURL": config.GOOGLE.callbackURL
+  },
+  "STRIPE": {
+    "apiKey": config.STRIPE.apiKey
   }
 };

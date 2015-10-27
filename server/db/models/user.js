@@ -17,7 +17,6 @@ var schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    // required: true,
     select: false
   },
   salt: {
@@ -37,6 +36,10 @@ var schema = new mongoose.Schema({
   },
   google: {
     id: String,
+    select: false
+  },
+  billingToken: {
+    type: String,
     select: false
   },
   isAdmin: {

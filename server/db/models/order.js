@@ -72,5 +72,8 @@ schema.methods.updateCart = function(productId, quantity) {
   return this.save()
 }
 
+schema.virtuals('totalPrice').get(function() {
+  return _.pluck(this.items, 'quantity'
+})
 var Order = mongoose.model('Order', schema);
 Order.on('error', console.log)
