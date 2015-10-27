@@ -1,5 +1,8 @@
 app.factory('CartFactory', function($http) {
-  return {
+
+    var theCart = {};
+
+    return {
     cart: theCart,
     initialize: initializeCart,
     addOne: addOne,
@@ -7,7 +10,7 @@ app.factory('CartFactory', function($http) {
     remove: removeFromCart
   };
 
-  var theCart = {};
+
 
 
   function initializeCart() {
@@ -24,6 +27,7 @@ app.factory('CartFactory', function($http) {
     }
     $http.post('/api/order/cart', config)
     .then(function(resp) {
+      console.log(resp.data);
       theCart = resp.data;
     })
   };

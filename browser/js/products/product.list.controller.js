@@ -16,7 +16,7 @@ app.controller('productListCtrl', function($scope, ProductList, products) {
     $scope.categories = function(){
         console.log('heynow')
         var arr = [];
-        $scope.products.forEach(function(product){
+        $scope.products.forEach(function(product){ //check out aggregator
             product.category.forEach(function(category){
                 if ( arr.indexOf(category) == -1){
                     arr.push(category)

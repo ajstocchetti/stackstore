@@ -34,7 +34,6 @@ app.directive('starRatings', function () {
             //};
             scope.$watch('product.ratings', function(oldValue, newValue){
                 if (newValue) {
-                    console.log("yo");
                     updateStars()
                 }
             });
