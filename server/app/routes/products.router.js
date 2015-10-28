@@ -12,7 +12,7 @@ var Product = require('../../db/models/product');
 router.param('productId', function(req, res, next, productId){
     Product.findById(productId).exec()
         .then(function (product) {
-            if (!product) throw HttpError(404);
+            if (!product) throw new Error(404);
             req.product = product;
             req.productId = productId;
             next();

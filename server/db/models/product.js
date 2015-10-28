@@ -34,7 +34,7 @@ var productSchema = new mongoose.Schema({
 		type: Number
 	},
 	reviews : [ reviewSchema ],
-    ratings: { type: Number }
+  ratings: { type: Number }
 
 });
 

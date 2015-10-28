@@ -1,6 +1,7 @@
 <pre class="item col-md-6">
-    <a ui-sref="/">order #:{{order._id}}</a>
-    <a ui-sref="/">user:{{order.user}}</a>
+    <a ui-sref="orderDetail({ id: order._id })">order #:{{order._id}}</a>
+    <a ui-sref="userDetail({ id: order.user })">user:{{order.user}}</a>
+    <p>Status: {{order.status}}</p>
 </pre>
 
 

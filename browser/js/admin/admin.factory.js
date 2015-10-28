@@ -5,7 +5,8 @@ app.factory('AdminFactory', function( $http ) {
 	
 	var service =  {
 		getAllUsers : getAllUsers,
-		getAllOrders: getAllOrders
+		getAllOrders: getAllOrders,
+		updateOrderStatus: updateOrderStatus
 	};
 
 	
@@ -26,6 +27,13 @@ app.factory('AdminFactory', function( $http ) {
 				return order.data;
 			})
 	};
+
+	function updateOrderStatus (orderId, data) {
+		return $http.put('/api/order/' + orderId, data)
+		.then(function(response) {
+			return response.data;
+		})
+	}
 
 
 });

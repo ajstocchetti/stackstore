@@ -63,6 +63,19 @@ router.get('/:id', function(req, res, next) {
     .catch(next);
 });
 
+
+router.put('/:id', hasAdminRights, function(req, res, next) {
+  Order.findById(req.params.id)
+  .then(function(order) {
+    order.status = req.body.orderStatus;
+    return order.save()
+  })
+  .then(function(order) {
+    res.json(order);
+  })
+})
+
+
 // get orders by user
 router.get('/user/:id', function(req, res, next) {
   var userId = req.params.id;
@@ -74,6 +87,10 @@ router.get('/user/:id', function(req, res, next) {
       next();
     });
 });
+
+
+
+
 
 router.post('/cart', function(req, res, next) {
   var prodId = req.body.product;
