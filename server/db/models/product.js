@@ -6,9 +6,26 @@ var mongoose = require('mongoose');
 var reviewSchema = require('./review.js').review;
 
 var productSchema = new mongoose.Schema({
-	name:{
-		type: String
-	},
+
+    name:{
+        type: String
+    },
+    capacity:{
+        type: String
+    },
+    weight:{
+        type: String
+    },
+
+    number: Number,
+    source: String,
+    range:  {
+        type: [String]
+    },
+    type: {
+        type: String
+    },
+    manufacturer: String,
 	description :{
 		type: String
 	},
@@ -25,10 +42,6 @@ var productSchema = new mongoose.Schema({
 	dateIntroduced:{
 		type: Date,
 		default: Date.now
-	},
-	unitOfSale : {
-		amount: Number,
-		unit: String
 	},
 	price: {
 		type: Number
