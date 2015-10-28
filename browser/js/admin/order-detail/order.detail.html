@@ -1,5 +1,16 @@
 <div>
   <h2>Order Detail</h2>
+  <h3>Current Status: {{ order.status }}</h3>
   <pre>{{ order | json }}</pre>
-  
+  <div class="form-group">
+    <form name="orderStatusForm" ng-submit="updateOrder(orderStatus)">
+      <label>Update Status</label>
+      <select id="orderStatus"name="orderStatus" ng-model="orderStatus">
+        <option value="processing">Processing</option>
+        <option value="cancelled">Cancel</option>
+        <option value="completed">Completed</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </div>
