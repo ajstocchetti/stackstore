@@ -1,14 +1,18 @@
 <div class="product-container">
   <div>
     <h1>Product List</h1>
-      <button
+      <div >
+           <div >
+      <button class="fixed"
               ng-repeat="category in categories"
               class="category-button"
               ng-click="filterByCategory(category)"
               ng-class="{active: activeCat == category}">{{ category }}
       </button>
-    <div ng-repeat="product in products">
-      <product-list product="product"></product-list>
+           </div>
+          <div  ng-repeat="product in products">
+            <product-list product="product"></product-list>
+        </div>
     </div>
   </div>
 </div>
