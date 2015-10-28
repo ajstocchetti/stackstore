@@ -3,13 +3,18 @@
 app.config(function ($stateProvider) {
 	$stateProvider.state('userDetail', {
 		url: '/users/:id',
-		templateUrl: '/js/user/user.detail.html',
+		templateUrl: 'js/admin/user-detail/user.detail.html',
 		controller: 'UserDetailCtrl',
 		resolve: {
-			orders: function (UserFactory, $stateParams) {
-				console.log("userDetail state trying to resolve orders");
+			user: function(UserFactory, $stateParams){
+				console.log($stateParams)
+				return UserFactory.getUser($stateParams.id)
+			},
+			orders: function (UserFactory, $stateParams, Session) {
+				// console.log("userDetail state trying to resolve orders");
 				return UserFactory.getUsersOrders($stateParams.id);
 			}
+
 		}
 	});
 });
