@@ -8,6 +8,14 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
 });
 
+
+app.filter("isntArray", function() {
+    return function(input) {
+        return !angular.isArray(input);
+    };
+});
+
+
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
 
