@@ -7,13 +7,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         link: function (scope) {
 
             scope.items = [
-                { label: 'Brotein', state: 'home' },
-                // { label: 'About', state: 'about' },
+                { label: 'Jawa Trader', state: 'home' },
                 { label: 'Product List', state: 'productList'},
-                // { label: 'Documentation', state: 'docs' },
-                { label: 'Members Only', state: 'membersOnly', auth: true },
-
-                { label: 'Admin Panel', state: 'admin-panel', auth: true }
+                { label: 'Account Management', state: 'membersOnly', auth: "login" },
+                { label: 'Admin Panel', state: 'admin-panel', auth: "admin" }
             ];
 
             scope.user = null;
@@ -21,6 +18,20 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
+
+            scope.isAdmin = function () {
+              console.log("Admin status: ", AuthService.isAdminUser())
+              return AuthService.isAdminUser();
+            }
+
+            scope.hasAuth = function(auth) {
+              if(auth=="login")
+                return this.isLoggedIn();
+              else if(auth=="admin")
+                return this.isAdmin();
+              return true
+            }
+
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
