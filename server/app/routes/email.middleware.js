@@ -8,7 +8,7 @@ var transporter = require('../../../emails/nodemailer.transporter');
 module.exports = {
 
   sendConfirmationEmail: function(req, res, next){
-  	console.log('inside sendConfirmationEmail', req.body.orderStatus);
+  	console.log('inside sendConfirmationEmail', req.body);
 
 	if(req.body.orderStatus =='completed'){
 		console.log('status completed');
