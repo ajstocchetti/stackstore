@@ -1,29 +1,33 @@
 
-    <!--<a ui-sref="orderDetail({ id: order._id })">order #:{{order._id}}</a>-->
-    <!--<a ui-sref="userDetail({ id: order.user })">user:{{order.user}}</a>-->
-    <div class="container">
-        <h3>{{product.name}}</h3>
-        <table border="1" class="table table-hover">
-            <thead>
-            <tr>
-                <th>Key</th>
-                <th>Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="(key,value) in product">
-                <td>{{key}}</td>
-                <td>
-                    <span ng-click="editing = true; original=value" ng-hide="editing" ng-bind="value"></span>
-                    <input ng-model="value" ng-show="editing" />
-                    <button class= "btn-success" ng-click="editProduct(product._id, key, value); editing=false"  ng-show="editing">ok</button>
-                    <button class ="btn-danger" ng-show="editing" ng-click="editing = false; value=original">Cancel</button>
-                </td>
-            </tr>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<!--<a ui-sref="orderDetail({ id: order._id })">order #:{{order._id}}</a>-->
+<!--<a ui-sref="userDetail({ id: order.user })">user:{{order.user}}</a>-->
+<div class="container">
+    <select >
+        <option ng-repeat="category in product.category" value="{{category}}">{{category}}<button class= "btn-success">ok</button></option>
+    </select>
+
+    <table border="1" class="table table-hover">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(key,value) in product" ng-if="value | isntArray">
+
+            <td>{{key}}</td>
+            <td>
+                <span ng-click="editing = true; original=value" ng-hide="editing" ng-bind="value"></span>
+                <input ng-model="value" ng-show="editing" />
+                <button class= "btn-success" ng-click="editProduct(product._id, key, value); editing=false"  ng-show="editing">ok</button>
+                <button class ="btn-danger" ng-show="editing" ng-click="editing = false; value=original">Cancel</button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 

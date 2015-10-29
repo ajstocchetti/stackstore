@@ -1,40 +1,58 @@
 <div class="product-container">
-  <div>
-    <h1>Admin Panel</h1>
-      <div class="cb" ng-click="showDetails = 'orders'">Orders</div>
-      <div class="cb" ng-click="showDetails = 'users'">Users</div>
-      <div class="cb" ng-click="showDetails = 'products'">Products</div>
+    <div>
+        <h1>Admin Panel</h1>
+        <ul class="nav nav-pills">
+            <li class="cb" ng-click="showDetails = 'orders'">
+                <a>Orders</a>
+            </li>
+            <li class="cb" ng-click="showDetails = 'users'">
+                <a>Users</a>
+            </li>
+            <li class="cb" ng-click="showDetails = 'products'">
+                <a>Products</a>
+            </li>
+        </ul>
 
-    <div class="panel panel-info" ng-show="(showDetails=='orders')">
-        <div class="panel-heading">
-          <h3 class="panel-title">Orders</h3>
+
+        <div class="panel panel-info" ng-show="(showDetails=='orders')">
+            <div class="panel-heading">
+                <h3 class="panel-title">Orders</h3>
+            </div>
+            <div class="panel-body" ng-repeat="order in orders">
+                <order-item order="order"></order-item>
+            </div>
         </div>
-        <div class="panel-body" ng-repeat="order in orders">
-          <order-item order="order"></order-item>
+
+        <div class="panel panel-info" ng-show="(showDetails=='users')">
+            <div class="panel-heading">
+                <h3 class="panel-title">Users</h3>
+            </div>
+            <div class="panel-body" ng-repeat="user in users">
+                <user-item user="user"></user-item>
+            </div>
         </div>
+
+        <div class="panel panel-info" ng-show="(showDetails=='products')">
+            <div class="panel-heading">
+                <h3 class="panel-title">Product Management</h3>
+            </div>
+            <div class="container">
+                <input class="glyphicon glyphicon-search" type="text" placeholder="Search" ng-model="productSearch">
+            </div>
+
+            <div  ng-repeat="product in products | orderBy:'name' | filter: productSearch ">
+                <div class = 'row container'>
+                    <h3>{{product.name}}</h3>
+                    <button class ="btn-danger" ng-click="deleteProduct(product)">Delete</button>
+                </div>
+                <product-item  ng-show="product" product="product"></product-item>
+
+            </div>
+        </div>
+
+
+
+
     </div>
-
-    <div class="panel panel-info" ng-show="(showDetails=='users')">
-        <div class="panel-heading">
-          <h3 class="panel-title">users</h3>
-        </div>
-        <div class="panel-body" ng-repeat="user in users">
-          <user-item user="user"></user-item>
-        </div>
-    </div>
-
-      <div class="panel panel-info" ng-show="(showDetails=='products')">
-          <div class="panel-heading">
-              <h3 class="panel-title">Product Management</h3>
-          </div>
-          <div  ng-repeat="product in products | orderBy:'name'">
-            <product-item product="product"></product-item>
-          </div>
-      </div>
-
-
-
-
-  </div>
 </div>
 
