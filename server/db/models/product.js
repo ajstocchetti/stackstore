@@ -36,7 +36,7 @@ var productSchema = new mongoose.Schema({
 		type: Number
 	},
 	image: {
-		type: String,
+		type: [String],
 		default: 'images/weapon_1.jpg'
 	},
 	dateIntroduced:{

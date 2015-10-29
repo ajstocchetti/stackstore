@@ -9,17 +9,23 @@ app.directive('productItem', function () {
 		},
         controller: function($scope, $http) {
             $scope.editProduct = function(id, key, value) {
-                console.log("step1", key, value);
                 var config = {};
                 config[key] = value;
                 console.log(config);
                 return $http.put('/api/products/detail/' + id, config)
                     .then(function (results) {
-                            //self.products = results.data;
-                            console.log(results.data);
+                        //console.log(results.data);
                         });
-
             }
+            //$scope.deleteProduct = function(id) {
+            //    return $http.delete('/api/products/' + id)
+            //        .then(function(results){
+            //            console.log("Item deleted")
+            //        })
+            //}
+        },
+        resolve: function($scope){
+            $scope.isArray = angular.isArray;
         }
     }
 });
