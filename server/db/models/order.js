@@ -19,6 +19,7 @@ var schema = new mongoose.Schema({
     quantity: Number,
     unitPrice: Number
   }],
+  total: Number,
   billing: {
     address: [ addressSchema ],
     cardNumber: { type: Number },
@@ -79,6 +80,15 @@ schema.statics.signInCart = function(req) {
   })
 }
 
+schema.methods.calcTotalPrice = function() {
+  var totalPrice = 0;
+  this.items.forEach(function(item) {
+    totalPrice += (item.quantity * item.unitPrice);
+  });
+  this.total = totalPrice;
+  return this;
+}
+
 schema.methods.updateCart = function(productId, quantity) {
   var index = _.pluck(this.items, 'product')
     .map(function(obj) { return obj.toString() })
@@ -97,6 +107,7 @@ schema.methods.updateCart = function(productId, quantity) {
           quantity: quantity,
           unitPrice: product.price
         });
+        cart.calcTotalPrice();
         return cart.save();
       })
       // .then(null, function(err) { console.error(err)})
@@ -106,6 +117,7 @@ schema.methods.updateCart = function(productId, quantity) {
       this.items.splice(index,1);
     }
   }
+  this.calcTotalPrice()
   return this.save()
 }
 
