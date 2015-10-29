@@ -34,7 +34,9 @@ var seedUsers = function () {
 
             email: 'testing@fsa.com',
 
-            password: 'password'
+            password: 'password',
+
+            
 
         },
 

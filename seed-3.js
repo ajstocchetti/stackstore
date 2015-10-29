@@ -30,9 +30,19 @@ var seedUsers = function () {
             password: 'password'
         },
         {
-            email: 'ian@ian.com',
+            email: 'mattlongoria@gmail.com',
             password: 'password',
-            isAdmin: true
+            isAdmin: true,
+            addresses: [
+                    {
+                      title: "Home",
+                      line1: "123 Awsome street",
+                      line2: "apt 1",
+                      city: "Awesome Town",
+                      state: "NY",
+                      zip: 10000
+                    }
+            ]
         },
     ];
 
