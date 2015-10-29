@@ -57,23 +57,23 @@ schema.statics.signInCart = function(req) {
     console.error("Could not merge carts - no session or user")
     return null;
   }
+  var theSchema = this;
   var searches = [
     this.model('Order').find({ session: req.session.id, status: 'cart' }),
     this.model('Order').find({ user: req.user._id, status: 'cart' })
   ];
   return Promise.all(searches).then(function(carts) {
-    var newCart = new this.model('Order')({
+    var newCart = new theSchema({
       user: req.user._id,
       status: 'cart'
     })
     var allCarts = carts[0].concat(carts[1]);
-    console.log("made all carts")
     allCarts.forEach(function(cart) {
       cart.items.forEach(function(item) {
         newCart.updateCart(item.product, item.quantity);
         // no need to save newCart, updateCart does that for us
       });
-      this.model('Order').remove({ _id: cart._id }).exec();
+      theSchema.remove({ _id: cart._id }).exec();
     });
 
     // varr allProducts = [];
