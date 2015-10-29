@@ -122,5 +122,5 @@ router.get('/cart/merge', function(req, res, next) {
   .then(function(cart) {
     res.send(cart);
   })
-  then(null, next);
+  .then(null, next);
 });
