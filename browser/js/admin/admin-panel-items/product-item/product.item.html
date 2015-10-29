@@ -14,9 +14,10 @@
             <tr ng-repeat="(key,value) in product">
                 <td>{{key}}</td>
                 <td>
-                    <span ng-click="editing = true" ng-hide="editing" ng-bind="value"></span>
+                    <span ng-click="editing = true; original=value" ng-hide="editing" ng-bind="value"></span>
                     <input ng-model="value" ng-show="editing" />
-                    <button ng-click="editProduct(product._id, key, value); editing=false"  ng-show="editing">ok</button>
+                    <button class= "btn-success" ng-click="editProduct(product._id, key, value); editing=false"  ng-show="editing">ok</button>
+                    <button class ="btn-danger" ng-show="editing" ng-click="editing = false; value=original">Cancel</button>
                 </td>
             </tr>
             </tr>
