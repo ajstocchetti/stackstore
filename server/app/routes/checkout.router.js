@@ -8,7 +8,8 @@ router.get('/:id', function(req, res, next) {
   Order.findPopulatedOrder(req.params.id)
   .then(function(order) {
 
-    makeCharge(order, req.body.stripeToken).then(function(result) {
+
+    checkout(order, req.body.stripeToken).then(function(result) {
       res.json(order, result);
       
       /* 
@@ -33,7 +34,7 @@ router.get('/:id', function(req, res, next) {
 
 module.exports = router;
 
-function makeCharge(order, userToken) {
+function checkout(order, userToken) {
   return stripe.charges.create({
     source: userToken,
     amount: order.totalPrice,
