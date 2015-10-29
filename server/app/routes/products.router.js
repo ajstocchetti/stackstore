@@ -23,7 +23,6 @@ router.param('productId', function(req, res, next, productId){
 router.use('/:productId/reviews', require('./reviews.router'));
 
 router.get('/', function (req, res, next) {
-    console.log("in the router");
     Product.find({}).exec()
         .then(function (products) {
             res.json(products);
@@ -49,10 +48,8 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/detail/:productId', function (req, res, next) {
-    console.log("hi");
     Product.findById(req.productId)
         .then(function (product) {
-            console.log(product);
             res.json(product);
         })
         .then(null, next);

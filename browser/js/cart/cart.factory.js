@@ -7,7 +7,8 @@ app.factory('CartFactory', function($http) {
     initialize: initializeCart,
     addOne: addOne,
     update: updateCart,
-    remove: removeFromCart
+    remove: removeFromCart,
+    merge: mergeCartOnLogin
   };
 
   function initializeCart() {
@@ -43,5 +44,12 @@ app.factory('CartFactory', function($http) {
       theCart = resp.data;
     })
   };
+
+  function mergeCartOnLogin() {
+    $http.get('/api/order/cart/merge')
+    .then(function(resp) {
+      theCart = resp.data;
+    })
+  }
 
 });
