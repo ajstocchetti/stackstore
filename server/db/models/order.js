@@ -75,26 +75,6 @@ schema.statics.signInCart = function(req) {
       });
       theSchema.remove({ _id: cart._id }).exec();
     });
-
-    // varr allProducts = [];
-    // var allCarts = carts[0].concat(carts[1]);
-    // allCarts.reduce(function(allProducts, cart) {
-    //   cart.items.reduce(function(allProducts, item) {
-    //     allProducts.push(item);
-    //   })
-    // })
-    //
-    // var newCart = new this.model('Order')({
-    //   user: req.user._id;
-    //   status: 'cart'
-    // });
-    // allProducts.forEach(function(item) {
-    //   newCart.updateCart(item.product, item.quantity);
-    // })
-    // // now remove any old carts
-    // allCarts.forEach(function(cart) {
-    //   this.model('Order').remove({ _id: cart._id }).exec();
-    // })
     return newCart;
   })
 }
@@ -110,7 +90,7 @@ schema.methods.updateCart = function(productId, quantity) {
     } else {
       // lookup product price
       var cart = this;
-      Product.findById(productId)
+      return Product.findById(productId)
       .then(function(product) {
         cart.items.push({
           product: productId,
