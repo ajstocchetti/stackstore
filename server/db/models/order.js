@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var addressSchema = require('./address.js').address;
+var Product = require('./product.js');
 var _ = require('lodash');
 
 var schema = new mongoose.Schema({
@@ -53,24 +54,27 @@ schema.statics.getUserCart = function(req) {
 schema.statics.signInCart = function(req) {
   if( !req.user || !req.session ) {
     // user or session missing
+    console.error("Could not merge carts - no session or user")
     return null;
   }
   var searches = [
     this.model('Order').find({ session: req.session.id, status: 'cart' }),
     this.model('Order').find({ user: req.user._id, status: 'cart' })
-  ]
+  ];
   return Promise.all(searches).then(function(carts) {
     var newCart = new this.model('Order')({
       user: req.user._id,
       status: 'cart'
-    });
+    })
     var allCarts = carts[0].concat(carts[1]);
+    console.log("made all carts")
     allCarts.forEach(function(cart) {
       cart.items.forEach(function(item) {
-        newCart.updateCart(item.product, item.quantity)
+        newCart.updateCart(item.product, item.quantity);
+        // no need to save newCart, updateCart does that for us
       });
       this.model('Order').remove({ _id: cart._id }).exec();
-    })
+    });
 
     // varr allProducts = [];
     // var allCarts = carts[0].concat(carts[1]);
@@ -93,8 +97,6 @@ schema.statics.signInCart = function(req) {
     // })
     return newCart;
   })
-
-
 }
 
 schema.methods.updateCart = function(productId, quantity) {
@@ -106,11 +108,18 @@ schema.methods.updateCart = function(productId, quantity) {
     if(index != -1) {
       this.items[index].quantity = quantity;
     } else {
-      // need to add price
-      this.items.push({
-        product: productId,
-        quantity: quantity
-      });
+      // lookup product price
+      var cart = this;
+      Product.findById(productId)
+      .then(function(product) {
+        cart.items.push({
+          product: productId,
+          quantity: quantity,
+          unitPrice: product.price
+        });
+        return cart.save();
+      })
+      // .then(null, function(err) { console.error(err)})
     }
   } else {
     if(index != -1) {

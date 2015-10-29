@@ -83,14 +83,8 @@ router.get('/user/:id', function(req, res, next) {
     .then(function(orders) {
       res.send(orders);
     })
-    .catch(function(err) {
-      next();
-    });
+    .then(null, next)
 });
-
-
-
-
 
 router.post('/cart', function(req, res, next) {
   var prodId = req.body.product;
@@ -103,10 +97,10 @@ router.post('/cart', function(req, res, next) {
       .then(function(cart) {
         res.send(cart);
       })
-      .catch(null, next)
+      .then(null, next)
     })
-    .catch(null, next)
-})
+    .then(null, next)
+});
 
 router.delete('/cart', function(req, res, next) {
   var prodId = req.body.product;
@@ -118,7 +112,15 @@ router.delete('/cart', function(req, res, next) {
       .then(function(cart) {
         res.send(cart);
       })
-      .catch(null, next)
+      .then(null, next)
     })
-    .catch(null, next)
-})
+    .then(null, next)
+});
+
+router.get('/cart/merge', function(req, res, next) {
+  Order.signInCart(req)
+  .then(function(cart) {
+    res.send(cart);
+  })
+  then(null, next);
+});

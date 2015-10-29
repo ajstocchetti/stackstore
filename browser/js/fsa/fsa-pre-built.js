@@ -48,16 +48,17 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, CartFactory) {
 
         function onSuccessfulLogin(response) {
             // check if password needs to be reset - triggered by 205 status code
-            if (response.status === 205) { 
+            if (response.status === 205) {
                 return { message: "reset" }
             } else {
                 var data = response.data;
                 Session.create(data.id, data.user);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                CartFactory.merge();
                 return data.user;
             }
         }
