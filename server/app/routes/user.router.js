@@ -115,7 +115,7 @@ router.get('/user/orders/:id', hasUserAccess, function(req, res, next) {
 
 // ADMIN route to make other admins!!!
 router.put('/admin/makeAdmin/:id', hasAdminRights, function(req, res, next) {
-  req.requestedUser.isAdmin = true;
+  req.requestedUser.isAdmin = !req.requestedUser.isAdmin;
   req.requestedUser.save()
   .then(function(user) {
     res.json(user);

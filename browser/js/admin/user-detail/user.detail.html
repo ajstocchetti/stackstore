@@ -1,12 +1,48 @@
+<div>
+    <div id="message" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
+    <span class="glyphicon glyphicon-menu-left" aria-hidden="true">
+        <a ui-sref="admin-panel">Back To Admin Home</a>
+    </span>
+    <h2>User Detail</h2>
+
+    <div class="col-md-10">
+        <ul class="list-group">
+            <li class="list-group-item"><b>ID #:</b>  {{user._id}}</li>
+            <li class="list-group-item"><b>Email:</b>     {{user.email}}</li>
+            <li class="list-group-item"><b>Is Admin:</b> {{user.isAdmin}}</li>
+        </ul>
+    </div>
+    <button  data-ng-click="passwordReset(user._id)" class="btn btn-default">Reset User Password</button>
+    <button  data-ng-click="toggleAdmin(user._id)" class="btn btn-default">Toggle Admin Rights</button>
+    <div class="col-md-10">
+
+        <ul class = "list-group" ng-repeat="product in user.productsPurchased">
+            <li class="list-group-item">{{product}}</li>
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <p>Orders</p>
+        <ul class = "list-group" ng-repeat="(key, value) in user.orders">
+            <li class="list-group-item">{{key}} : {{value}}</li>
+        </ul>
+    </div>
+
+    <div class="col-md-10">
+        <p>Reviews</p>
+        <ul class = "list-group" ng-repeat="(key, value) in user.reviews">
+            <li class="list-group-item">{{key}} : {{value}}</li>
+        </ul>
+    </div>
 
 
 
-<div class="container">
-   <h2>User Detail</h2>
-	<pre>
-		
-		{{user | json}}
+    <div class="col-md-10">
+       <h2>User Detail</h2>
+        <pre>
 
-	</pre>
+            {{user | json}}
+
+        </pre>
+    </div>
 
 </div>

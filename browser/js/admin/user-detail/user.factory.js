@@ -5,9 +5,9 @@ app.factory('UserFactory', function($http) {
 
 	var service = {
 		getUsersOrders  : getUsersOrders,
-		getUser: getUser
-		// getUsersProducts: getUsersProducts,
-		// getUsersReviews : getUsersReviews
+		getUser: getUser,
+		resetPassword: resetPassword,
+		toggleAdmin: toggleAdmin
 	}
 
 
@@ -30,6 +30,24 @@ app.factory('UserFactory', function($http) {
 			return response.data;
 		})
 	}
+
+    function toggleAdmin(id){
+        return $http.put('/api/users/admin/makeAdmin/' + id)
+            .then(function(response){
+                return response.data;
+            })
+    }
+
+    function resetPassword(id){
+        return $http.put('/api/users/admin/reset/' + id)
+            .then(function(response){
+                return response;
+            })
+    }
+
+
+
+
 
 
 });

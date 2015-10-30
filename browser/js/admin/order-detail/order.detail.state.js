@@ -9,7 +9,10 @@ app.config(function ($stateProvider) {
       order: function (OrderFactory, $stateParams) {
         console.log("userDetail state trying to resolve orders");
         return OrderFactory.getOne($stateParams.id);
-      }
+      },
+        users: function (AdminFactory) {
+            return AdminFactory.getAllUsers()
+        }
     }
   });
 });
