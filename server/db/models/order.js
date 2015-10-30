@@ -109,5 +109,7 @@ schema.methods.updateCart = function(productId, quantity) {
   return this.save()
 }
 
+// schema.statics.findPopulatedOrder = function()
+
 var Order = mongoose.model('Order', schema);
 Order.on('error', console.log)
