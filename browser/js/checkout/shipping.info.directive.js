@@ -3,6 +3,6 @@ app.directive('shippingForm', function() {
     restrict: 'E',
     scope: false,
     templateUrl: "/js/checkout/shipping.info.html",
-    controller = "checkoutCtrl"
+    controller: "checkoutCtrl"
   }
 })
