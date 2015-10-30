@@ -3,18 +3,21 @@ app.factory('CartFactory', function($http) {
     var theCart = {};
 
     return {
-    cart: theCart,
-    initialize: initializeCart,
-    addOne: addOne,
-    update: updateCart,
-    remove: removeFromCart,
-    merge: mergeCartOnLogin
+    cart       : theCart,
+    initialize : initializeCart,
+    addOne     : addOne,
+    update     : updateCart,
+    remove     : removeFromCart,
+    merge      : mergeCartOnLogin
   };
 
   function initializeCart() {
+    console.log('initializeCart');
     return $http.get('/api/order/current')
     .then(function(resp) {
       theCart = resp.data;
+      return theCart;
+      console.log('theCart', theCart);
     })
   }
 

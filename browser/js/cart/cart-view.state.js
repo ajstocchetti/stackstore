@@ -5,6 +5,11 @@ app.config(function ($stateProvider) {
         .state('cart', {
             url: '/cart',
             templateUrl: 'js/cart/cart-view.html',
-            controller: 'productListCtrl'
+            controller: 'cartCtrl',
+            resolve: {
+                cart : function(CartFactory){
+                    return CartFactory.initialize();
+                }
+            }
         })
 });

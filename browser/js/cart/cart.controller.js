@@ -1,11 +1,20 @@
-app.controller('cartCtrl', function($scope, CartFactory ) {
-  $scope.cart = CartFactory.cart;
-  CartFactory.initialize();
+app.controller('cartCtrl', function($scope, CartFactory, cart ) {
+	$scope.cart = cart;
+	// $scope.cart = cart;
+	console.log('$scope.cart',$scope.cart);
+	// CartFactory.initialize();
 
-  $scope.addToCart = CartFactory.addOne(prod);
+	$scope.addToCart = function(prod){
+		return CartFactory.addOne(prod);
+  	}; 
+  	
 
-  $scope.update = CartFactory.update(prod, qty);
+	$scope.update = function(prod, qty){
+		return CartFactory.update(prod, qty);
+	};
 
-  $scope.remove = CartFactory.remove(prod);
+	$scope.remove = function(prod){
+		return CartFactory.remove(prod);
+	};
 
 });

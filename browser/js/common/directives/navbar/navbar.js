@@ -10,7 +10,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Jawa Trader', state: 'home' },
                 { label: 'Product List', state: 'productList'},
                 { label: 'Account Management', state: 'membersOnly', auth: "login" },
-                { label: 'Admin Panel', state: 'admin-panel', auth: "admin" }
+                { label: 'Admin Panel', state: 'admin-panel', auth: "admin" },
+                { label: 'Cart', state: 'cart' }
             ];
 
             scope.user = null;
