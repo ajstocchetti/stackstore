@@ -1,8 +1,30 @@
-<pre class="item col-md-6">
-    <a ui-sref="orderDetail({ id: order._id })">order #:{{order._id}}</a>
-    <a ui-sref="userDetail({ id: order.user })">user:{{order.user}}</a>
-    <p>Status: {{order.status}}</p>
-</pre>
+<div class="item col-md-6">
+    <!--<div class="container">-->
+        <!--<table class="table table-hover">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>Property</th>-->
+                <!--<th>Value</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr>-->
+                <!--<td><a ui-sref="orderDetail({ id: order._id })">order #:{{order._id}}</a</td>-->
+                <!--<td><a ui-sref="userDetail({ id: order.user })">user:{{order.user}}</a></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+
+
+    <ul class="list-group">
+        <li class="list-group-item"><a ui-sref="orderDetail({ id: order._id })">Order #:     {{order._id}}</a></li>
+        <li class="list-group-item"><a ui-sref="userDetail({ id: order.user })">User:     {{order.user}}</a></li>
+        <li class="list-group-item">Status: {{order.status}}</li>
+    </ul>
+
+
+</div>
 
 
 

@@ -1,16 +1,48 @@
 <div>
   <h2>Order Detail</h2>
-  <h3>Current Status: {{ order.status }}</h3>
-  <pre>{{ order | json }}</pre>
-  <div class="form-group">
-    <form name="orderStatusForm" ng-submit="updateOrder(orderStatus)">
-      <label>Update Status</label>
-      <select id="orderStatus"name="orderStatus" ng-model="orderStatus">
-        <option value="processing">Processing</option>
-        <option value="cancelled">Cancel</option>
-        <option value="completed">Completed</option>
-      </select>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-</div>
+
+    <div class="col-md-10">
+        <ul class="list-group">
+            <li class="list-group-item"> Order #:  {{order._id}}</li>
+            <li class="list-group-item"> User:     {{order.user}}</li>
+            <li class="list-group-item"> Status: {{order.status}}</li>
+            <li class="list-group-item">
+                <form name="orderStatusForm" ng-submit="updateOrder(orderStatus)">
+                    <label>Update Status</label>
+                    <select id="orderStatus"name="orderStatus" ng-model="orderStatus">
+                        <option value="processing">Processing</option>
+                        <option value="cancelled">Cancel</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
+
+        <div class="col-md-10">
+            <h2>Items</h2>
+            <ul class="list-group" ng-repeat="item in order.items">
+                <li class="list-group-item">Product: {{item.product}}</li>
+                <li class="list-group-item">Quantity: {{item.quantity}}</li>
+            </ul>
+            </div>
+
+
+
+  <!--<h3>Current Status: {{ order.status }}</h3>-->
+  <!--<pre>{{ order | json }}</pre>-->
+  <!--<div class="form-group">-->
+    <!--<form name="orderStatusForm" ng-submit="updateOrder(orderStatus)">-->
+      <!--<label>Update Status</label>-->
+      <!--<select id="orderStatus"name="orderStatus" ng-model="orderStatus">-->
+        <!--<option value="processing">Processing</option>-->
+        <!--<option value="cancelled">Cancel</option>-->
+        <!--<option value="completed">Completed</option>-->
+      <!--</select>-->
+      <!--<button type="submit">Submit</button>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</div>-->
