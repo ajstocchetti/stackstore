@@ -1,0 +1,9 @@
+<div>
+    <!--<button ng-if="categories.length == 0" ng-click="addCategory()" style="margin-left:30px" type="button" class="btn-success"> Add Category</button-->
+    <div style="padding-top:10px; margin-left:30px;" class="btn-group btn-group-sm" ng-repeat="category in categories">
+        <button ng-click="deleteCategory(category,categories, id, $index)" type="button" class="btn btn-primary">{{category}}</button>
+        <button ng-if="$index+1 == categories.length" ng-click="addCategory(id)" style="margin-left:30px" type="button" class="btn-success"> Add Category</button>
+
+    </div>
+
+    </div>

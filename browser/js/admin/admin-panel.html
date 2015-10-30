@@ -37,15 +37,22 @@
                 <h3 class="panel-title">Product Management</h3>
             </div>
             <div class="container">
-                <input class="glyphicon glyphicon-search" type="text" placeholder="Search" ng-model="productSearch">
+                <input id='search' class="glyphicon glyphicon-search product-search" type="text" placeholder="Search" ng-model="productSearch">
             </div>
 
             <div  ng-repeat="product in products | orderBy:'name' | filter: productSearch ">
                 <div class = 'row container'>
                     <h3>{{product.name}}</h3>
-                    <button class ="btn-danger" ng-click="deleteProduct(product)">Delete</button>
+                    <ul class="nav nav-pills">
+                        <li> <button class ="btn-danger" ng-click="deleteProduct(product)">Delete Item</button></li>
+                        <li> <button class ="btn-warning" >Photo Management</button></li>
+                        <li> <button ng-hide="product.category.length==0" class ="btn-info" ng-click="categoryManagement(product.name)">Category Management</button></li>
+                        <li> <button ng-show="product.category.length==0" class ="btn-info" ng-click="addCategory(product)">Add Category</button></li>
+
+                    </ul>
                 </div>
-                <product-item  ng-show="product" product="product"></product-item>
+                <category-edit categories='product.category' id='product._id' ng-hide="product.name != catEdit"></category-edit>
+                <product-item  product="product"></product-item>
 
             </div>
         </div>
