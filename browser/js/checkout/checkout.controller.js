@@ -1,4 +1,4 @@
-app.controller('checkoutCtrl', function($scope, order, step, AuthService) {
+app.controller('checkoutCtrl', function($scope, order, step, AuthService, PaymentFactory) {
   $scope.order = order;
   $scope.step = step;
   $scope.shippingAddress = {};
@@ -20,12 +20,15 @@ app.controller('checkoutCtrl', function($scope, order, step, AuthService) {
     $scope.step = "payment"
   }
 
-  $scope.stripeCallback = function (code, result) {
+  $scope.stripeCallback = function (data, result) {
     if (result.error) {
       window.alert('it failed! error: ' + result.error.message);
     } else {
       window.alert('success! token: ' + result.id);
+      PaymentFactory.checkout(order._id, result)
+
     }
+    console.log(result)
   };
 
 })

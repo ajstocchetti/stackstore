@@ -11,9 +11,6 @@ app.config(function ($urlRouterProvider, $locationProvider) {
 	});
 });
 
-app.config(function() {
-        window.Stripe.setPublishableKey('pk_test_JdSjoyLLpeq1JQp2HrXfogR6');
-})
 
 //filter out properties that are arrays
 app.filter("isntArray", function() {

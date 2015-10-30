@@ -1,11 +1,6 @@
 <div class="col-md-8">
-<!--   <form stripe-form="stripeCallback">
-    <input ng-model="number" placeholder="Card Number" />
-    <input ng-model="expiry" placeholder="Expiration" />
-    <input ng-model="cvc" placeholder="CVC" />
-    <button type="submit">Submit</button>
-  </form> -->
-  <form stripe-form="stripeCallback" name="form">
+
+    <form stripe-form="stripeCallback" name="form">
       <input ng-model="number" placeholder="Card Number" payments-format="card"
              payments-validate="card" name="card" />
       <input ng-model="expiry" placeholder="Expiration" payments-format="expiry"
@@ -24,5 +19,7 @@
     <div ng-if="form.cvc.$invalid">
       Error: invalid CVC!
     </div>
+
+    <pre>{{ number }}</pre>
 
 </div>
