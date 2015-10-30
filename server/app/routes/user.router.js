@@ -21,7 +21,6 @@ router.param('id', function (req, res, next, id) {
   // console.log(id);
   User.findById(id).select('+passwordResetTriggered').exec()
   .then(function (user) {
-    console.log("okay, here")
     if (!user) throw new Error(404);
     req.requestedUser = user;
     next();

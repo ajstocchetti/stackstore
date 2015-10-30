@@ -104,11 +104,13 @@ schema.path('email').validate(emailVal, "Email is invalid")
 
 // Get orders for a user that is not in cart status
 schema.methods.getOrders = function() {
-  console.log('getting orders for:', this.email);
+  // console.log('getting orders for:', this.email);
   return Order.find({
     user: this._id,
     status: { $ne: 'cart' }
-  }).exec()
+  })
+  .populate('items.product')
+  .exec()
 
 };
 

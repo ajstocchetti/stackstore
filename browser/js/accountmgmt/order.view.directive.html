@@ -1,0 +1,13 @@
+<div>
+  <h2>Order</h2>
+  Status: {{ order.status }} (as of {{ order.updated | date }})
+    <cancel-order order=order></cancel-order>
+  <br>
+  Total Cost: {{ order.total | currency }}
+
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="item in order.items">
+      <order-item-detail item=item></order-item-detail>
+    </li>
+  </ul>
+</div>
