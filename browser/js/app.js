@@ -6,6 +6,9 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.when('/auth/:provider', function () {
+		window.location.reload();
+	});
 });
 
 
@@ -56,5 +59,3 @@ app.run(function ($rootScope, AuthService, $state) {
 
     });
 });
-
-
