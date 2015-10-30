@@ -1,13 +1,18 @@
 <div>
-  <h2>Order</h2>
-  Status: {{ order.status }} (as of {{ order.updated | date }})
+  <div>
+    <h2>Order</h2>
+    Order Status (as of {{ order.updated | date }}): {{ order.status | uppercase }}
+    <br>
     <cancel-order order=order></cancel-order>
-  <br>
-  Total Cost: {{ order.total | currency }}
+    <br><br>
+    Total Cost: {{ order.total | currency }}
+  </div>
 
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="item in order.items">
-      <order-item-detail item=item></order-item-detail>
-    </li>
-  </ul>
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="item in order.items">
+        <order-item-detail item=item></order-item-detail>
+      </li>
+    </ul>
+  </div>
 </div>
