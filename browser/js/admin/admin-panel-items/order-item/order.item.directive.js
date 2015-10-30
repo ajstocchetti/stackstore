@@ -5,7 +5,7 @@ app.directive('orderItem', function () {
 		restrict: 'E',
 		templateUrl: 'js/admin/admin-panel-items/order-item/order.item.html',
 		scope: {
-			order: '=',
+			order: '='
 		}
 	}
 });
