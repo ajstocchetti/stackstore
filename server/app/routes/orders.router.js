@@ -12,6 +12,7 @@ module.exports = router;
 var accessMiddleware = require('./access.middleware'),
     hasAdminRights = accessMiddleware.hasAdminRights
 
+var sendConfirmationEmail = require('./email.middleware').sendConfirmationEmail;
 
 var lookupCart = function(req) {
   return Order.getUserCart(req)
@@ -64,7 +65,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 
-router.put('/:id', hasAdminRights, function(req, res, next) {
+router.put('/:id', hasAdminRights, sendConfirmationEmail, function(req, res, next) {
   Order.findById(req.params.id)
   .then(function(order) {
     order.status = req.body.orderStatus;

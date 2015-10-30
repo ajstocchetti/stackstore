@@ -24,7 +24,7 @@ module.exports = {
 
   // Only admins can get past this
   hasAdminRights: function(req, res, next) {
-    if (req.user.isAdmin) {
+    if (req.user && req.user.isAdmin) {
       next()
     } else {
       res.status(401).send('Need to be an admin to get here')
