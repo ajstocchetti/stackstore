@@ -36,6 +36,7 @@
             </div>
         </div>
 
+
         <div class="panel panel-info" ng-show="(showDetails=='users')">
             <div class="panel-heading">
                 <h3 class="panel-title">Users</h3>
@@ -49,10 +50,14 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Product Management</h3>
             </div>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id= "search" type="text" class="form-control" placeholder="Search" ng-model="productSearch">
+                </div>
+                <a ui-sref="productAdd">Click to Add a Product</a>
+            </form>
             <div class="container">
-                <input id='search' class="glyphicon glyphicon-search product-search" type="text" placeholder="Search" ng-model="productSearch">
             </div>
-
             <div  ng-repeat="product in products | orderBy:'name' | filter: productSearch ">
                 <div class = 'row container'>
                     <h3>{{product.name}}</h3>
@@ -75,4 +80,3 @@
 
     </div>
 </div>
-
