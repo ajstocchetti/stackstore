@@ -18,9 +18,10 @@ router.use(isAuthenticated);
 
 // Find requested user by id and store as req.requested user
 router.param('id', function (req, res, next, id) {
-  console.log(id);
+  // console.log(id);
   User.findById(id).select('+passwordResetTriggered').exec()
   .then(function (user) {
+    console.log("okay, here")
     if (!user) throw new Error(404);
     req.requestedUser = user;
     next();
@@ -30,7 +31,7 @@ router.param('id', function (req, res, next, id) {
 
 
 router.get('/', hasAdminRights, function(req, res, next) {
-  User.find({ 
+  User.find({
     isAdmin: false
   })
   .then(function(users) {
@@ -40,15 +41,18 @@ router.get('/', hasAdminRights, function(req, res, next) {
 })
 
 router.get('/me', function(req, res, next) {
-  console.log("me");
-  res.json(req.user);
+  // res.json(req.user);
+  User.findById(req.user._id)
+  .then(function(user) {
+    res.send(user);
+  })
 })
 
 // Get user profile - right now you can only view your own unless admin
 router.get('/:id', hasUserAccess, function(req, res, next) {
   var reviewPromise = req.requestedUser.getReviews();
   var orderPromise = req.requestedUser.getOrders();
-  
+
   Promise.join(reviewPromise, orderPromise, function(orders, reviews) {
     var userObj = req.requestedUser.toObject()
     userObj.orders = orders;
@@ -130,4 +134,3 @@ router.put('/admin/reset/:id', hasAdminRights, function(req, res, next) {
 })
 
 module.exports = router;
-

@@ -6,14 +6,14 @@ app.config(function ($stateProvider) {
         resolve: {
           me: function(AccountFactory) {
             return AccountFactory.me()
-            // .then(function(me) {
-            //   return me
-            // })
+          },
+          orders: function(AccountFactory) {
+            return AccountFactory.myOrders();
           }
         },
-        controller: function ($scope, me) {
+        controller: function ($scope, me, orders) {
             $scope.me = me;
-            $scope.asdf = "asdf";
+            $scope.orders = orders;
         },
         // The following data.authenticate is read by an event listener
         // that controls access to this state. Refer to app.js.

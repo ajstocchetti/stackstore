@@ -14,7 +14,7 @@ module.exports = {
     You can only access your own user info unless an admin
   */
   hasUserAccess: function(req, res, next) {
-    if (req.user._id == req.requestedUser._id || req.user.isAdmin) {
+    if (req.user.isAdmin || JSON.stringify(req.requestedUser._id) == JSON.stringify(req.user._id)) {
       next()
     }
     else {
@@ -28,8 +28,7 @@ module.exports = {
       next()
     } else {
       res.status(401).send('Need to be an admin to get here')
-    } 
+    }
   }
 
 }
-
