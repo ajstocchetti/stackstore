@@ -1,4 +1,4 @@
-app.controller('checkoutCtrl', function($scope, order, step, AuthService) {
+app.controller('checkoutCtrl', function($scope, order, step, AuthService, PaymentFactory) {
   $scope.order = order;
   $scope.step = step;
   $scope.shippingAddress = {};
@@ -12,5 +12,23 @@ app.controller('checkoutCtrl', function($scope, order, step, AuthService) {
     $scope.step = "shipping";
   }
 
+  $scope.copyShipping = function() {
+    $scope.billingAddress = _.clone($scope.shippingAddress);
+  }
+
+  $scope.confirmAddress = function() {
+    $scope.step = "payment"
+  }
+
+  $scope.stripeCallback = function (data, result) {
+    if (result.error) {
+      window.alert('it failed! error: ' + result.error.message);
+    } else {
+      window.alert('success! token: ' + result.id);
+      PaymentFactory.checkout(order._id, result)
+
+    }
+    console.log(result)
+  };
 
 })

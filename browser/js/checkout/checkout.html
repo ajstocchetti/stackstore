@@ -34,9 +34,12 @@
 
     <!-- shipping form -->
     <div ng-show="step === 'shipping'">
-      <shipping-form></shipping-form>
+      <address-form></address-form>
     </div>
     
+    <div ng-show="step === 'payment'">
+      <payment-form></payment-form>
+    </div>
     
 
   </div>

@@ -10,6 +10,8 @@ router.use('/order', require('./orders.router.js'));
 
 router.use('/users', require('./user.router'));
 
+router.use('/checkout', require('./checkout.router'));
+
 
 // Make sure this is after all of
 // the registered routes!
