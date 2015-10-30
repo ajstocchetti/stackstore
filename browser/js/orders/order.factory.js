@@ -1,6 +1,7 @@
 app.factory('OrderFactory', function ($http) {
     return {
-        getOne: getOrder
+        getOne: getOrder,
+        cancelOrder: cancelOrder
     };
 
     function getOrder(id) {
@@ -10,7 +11,10 @@ app.factory('OrderFactory', function ($http) {
         })
     }
 
-
+    function cancelOrder(id) {
+      console.log("Cancelling order");
+      console.log(id);
+    }
 
 
 });
