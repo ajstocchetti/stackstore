@@ -11,10 +11,8 @@ app.directive('productItem', function () {
             $scope.editProduct = function(id, key, value) {
                 var config = {};
                 config[key] = value;
-                console.log(config);
                 return $http.put('/api/products/detail/' + id, config)
                     .then(function (results) {
-                        //console.log(results.data);
                     });
             }
         },
