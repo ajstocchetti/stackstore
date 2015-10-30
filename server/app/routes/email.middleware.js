@@ -9,19 +9,24 @@ var User        = mongoose.model('User');
 module.exports = {
 
   sendConfirmationEmail: function(req, res, next){
-  	console.log('inside sendConfirmationEmail', req.session.passport.user);
 
 	if(req.body.orderStatus =='completed'){
-		console.log('status completed');
-		console.log(req.body);
+		
 			
 		var sendTo   = req.body.recipient;
 		var shipTo   = req.body.shipTo;
+		// var items	 = req.body.items;
+		var items =[];
+		for (var item in req.body.items){
+			items.push(req.body.items[item].product + ' x ' + req.body.items[item].quantity)
+		}
 		var template = swig.compileFile(__dirname+'../../../../emails/template.html');
 
 		var output = template({
-			name:sendTo,
-			shippingAddress: shipTo
+			name           :sendTo,
+			shippingAddress: shipTo,
+			items          : items
+
 		})
 		// NB! No need to recreate the transporter object. You can use
 		// the same transporter object for all e-mails
@@ -37,7 +42,7 @@ module.exports = {
 
 		// send mail with defined transport object
 		transporter.sendMail(mailOptions);
-			
+		next();	
 			
 		
 	}
@@ -48,5 +53,3 @@ module.exports = {
 	}
 }
 
-
-  
