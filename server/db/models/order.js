@@ -30,7 +30,14 @@ var schema = new mongoose.Schema({
   shipping: {
     name: String,
     address: [ addressSchema ]
-  }
+  },
+  updated: Date
+});
+
+
+schema.pre('save', function(next) {
+  this.updated = Date.now();
+  next();
 });
 
 schema.statics.getUserCart = function(req) {

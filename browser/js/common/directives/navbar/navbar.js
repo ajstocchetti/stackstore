@@ -9,7 +9,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             scope.items = [
                 { label: 'Jawa Trader', state: 'home' },
                 { label: 'Product List', state: 'productList'},
-                { label: 'Account Management', state: 'membersOnly', auth: "login" },
+                { label: 'Account Management', state: 'accountMgmt', auth: "login" },
                 { label: 'Admin Panel', state: 'admin-panel', auth: "admin" }
             ];
 
@@ -20,7 +20,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             };
 
             scope.isAdmin = function () {
-              console.log("Admin status: ", AuthService.isAdminUser())
               return AuthService.isAdminUser();
             }
 

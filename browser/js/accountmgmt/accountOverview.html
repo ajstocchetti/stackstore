@@ -1,0 +1,32 @@
+<div class="product-container">
+  <div>
+    <h1>Account Management</h1>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">My User Info</h3>
+      </div>
+      <div class="row">
+        <div class="panel-body">
+          Email: {{ me.email }}
+          <br>
+          ID: {{me._id}}
+          <div ng-show="!!me.isAdmin">You are an administrator</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">My Orders</h3>
+      </div>
+      <div class="row">
+        <div class="panel-body">
+          <div ng-repeat="order in orders | filter: status">
+            <user-order-view order=order></user-order-view>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
