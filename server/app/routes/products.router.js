@@ -8,6 +8,9 @@ var router = require('express').Router(),
 
 var Product = require('../../db/models/product');
 
+var accessMiddleware = require('./access.middleware'),
+    hasAdminRights = accessMiddleware.hasAdminRights
+
 
 router.param('productId', function(req, res, next, productId){
     Product.findById(productId).exec()
@@ -39,7 +42,7 @@ router.get('/category/:category', function(req, res, next){
 });
 
 
-router.post('/', function (req, res, next) {
+router.post('/', hasAdminRights, function (req, res, next) {
     Product.create(req.body)
         .then(function (product) {
             res.json(product);
@@ -55,7 +58,7 @@ router.get('/detail/:productId', function (req, res, next) {
         .then(null, next);
 });
 
-router.put('/detail/:productId', function (req, res, next) {
+router.put('/detail/:productId', hasAdminRights, function (req, res, next) {
     _.extend(req.product, req.body);
     req.product.save()
         .then(function (product) {
@@ -64,16 +67,8 @@ router.put('/detail/:productId', function (req, res, next) {
         .then(null, next);
 });
 
-router.put('/:productId/:operator/:quantity', function (req, res, next) {
-    Product.findById(req.productId)
-        .then(function (product) {
-            product.updateInventory(req.params.operator, req.params.quantity)
-            res.json(product);
-        })
-        .then(null, next);
-});
 
-router.delete('/:productId', function (req, res, next) {
+router.delete('/:productId', hasAdminRights, function (req, res, next) {
     req.product.remove()
         .then(function () {
             res.status(204).end();
