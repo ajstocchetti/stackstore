@@ -60,16 +60,7 @@ productSchema.pre("save", function(next) {
   next();
 });
 
-//productSchema.pre('save').get(function(){
-//	var total = 0;
-//
-//	this.reviews.forEach(function(review){
-//		total+= review.stars;
-//	});
-//	return total/this.reviews.length;
-//});
-//
-//
+
 
 var Product = mongoose.model('Product', productSchema);
 module.exports = Product;

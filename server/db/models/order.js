@@ -36,10 +36,10 @@ var schema = new mongoose.Schema({
 schema.statics.getUserCart = function(req) {
   var searches = [];
   if(req.user && req.user._id) {
-    searches.push(this.model('Order').find({ user: req.user._id, status: 'cart' }))
+    searches.push(this.model('Order').find({ user: req.user._id, status: 'cart' }).populate('items.product'))
   }
   if(req.session && req.session.id) {
-    searches.push(this.model('Order').find({ session: req.session.id, status: 'cart' }))
+    searches.push(this.model('Order').find({ session: req.session.id, status: 'cart' }).populate('items.product'))
   }
   return Promise.all(searches).then(function(vals) {
     for(var x=0; x<vals.length; x++) {

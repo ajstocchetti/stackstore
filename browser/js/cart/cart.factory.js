@@ -17,7 +17,6 @@ app.factory('CartFactory', function($http) {
     .then(function(resp) {
       theCart = resp.data;
       return theCart;
-      console.log('theCart', theCart);
     })
   }
 
