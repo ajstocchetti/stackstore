@@ -2,14 +2,15 @@
 
 
 app.factory('AdminFactory', function( $http ) {
-	
+
 	var service =  {
 		getAllUsers : getAllUsers,
 		getAllOrders: getAllOrders,
-		updateOrderStatus: updateOrderStatus
+		updateOrderStatus: updateOrderStatus,
+        addNewProduct: addNewProduct
 	};
 
-	
+
 	//////////////////////////////
 
 	return service;
@@ -34,6 +35,13 @@ app.factory('AdminFactory', function( $http ) {
 			return response.data;
 		})
 	}
+
+    function addNewProduct (data) {
+        return $http.post('/api/products/', data)
+            .then(function(response) {
+                return response.data;
+            })
+    }
 
 
 });

@@ -1,0 +1,46 @@
+<div>
+    <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
+    <form name="addForm" novalidate role="form">
+
+        <div class="form-group">
+            <label for="newName">Product Name </label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newName.$error.required">Required!</span>
+            <input id='newName' type="text" name="newName" placeholder="PP5-1-DoDo" data-ng-model="newName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="newPrice">Product Price</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newPrice.$error.required">Required!</span>
+            <input id='newPrice' type="number" name="newPrice" data-ng-model="newPrice" placeholder="1000"class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="newCapacity">Product Capacity</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newCapacity.$error.required">Required!</span>
+            <input id='newCapacity' type="text" name="newCapacity" data-ng-model="newCapacity" placeholder="20 Arrows"class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="newDescription">Product Description</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newDescription.$error.required">Required!</span>
+            <input id='newDescription'type="text" name="newDescription" data-ng-model="newDescription" placeholder="This gun will knock your socks off" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="newMan">Manufacturer</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newMan.$error.required">Required!</span>
+            <input id='newMan' type="text" name="newMan" data-ng-model="newMan" class="form-control" placeholder="Acme" required />
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="newImage">URL of Image</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.$error.url">Invalid URL format!</span>
+            <input id="newImage" type="url" name="newImage" placeholder="http://limecelebration.com/tatershooter.jpg" data-ng-model="newImage" class="form-control" />
+        </div>
+
+
+        <button  data-ng-click="submit(addForm)" class="btn btn-default">Submit</button>
+    </form>
+</div>
