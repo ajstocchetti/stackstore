@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt']);
+window.app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'angularPayments']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -11,6 +11,9 @@ app.config(function ($urlRouterProvider, $locationProvider) {
 	});
 });
 
+app.config(function() {
+        window.Stripe.setPublishableKey('pk_test_JdSjoyLLpeq1JQp2HrXfogR6');
+})
 
 //filter out properties that are arrays
 app.filter("isntArray", function() {
