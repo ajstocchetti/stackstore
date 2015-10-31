@@ -40,7 +40,6 @@ schema.pre('save', function(next) {
 });
 
 schema.statics.getUserCart = function(req) {
-  console.log('order model getUserCart');
   var searches = [];
   if(req.user && req.user._id) {
     searches.push(this.model('Order').find({ user: req.user._id, status: 'cart' }).populate('items.product'))
@@ -60,7 +59,6 @@ schema.statics.getUserCart = function(req) {
 
 // when a user logs in, update their cart with their user
 schema.statics.signInCart = function(req) {
-  console.log("order model signInCart", this);
   if( !req.user || !req.session ) {
     // user or session missing
     console.error("Could not merge carts - no session or user")
@@ -68,21 +66,23 @@ schema.statics.signInCart = function(req) {
   }
   var theSchema = this;
   var searches = [
-    this.model('Order').find({ session: req.session.id, status: 'cart' }),
-    this.model('Order').find({ user: req.user._id, status: 'cart' })
+    this.model('Order').find({ session: req.session.id, status: 'cart' }.populate('items.product')),
+    this.model('Order').find({ user: req.user._id, status: 'cart' }.populate('items.product'))
   ];
   return Promise.all(searches).then(function(carts) {
-    
-    var sessionCart    = carts[0];
-    var storedUserCart = carts[1];
+    var newCart = new theSchema({
+      user: req.user._id,
+      status: 'cart'
+    })
     var allCarts = carts[0].concat(carts[1]);
-      sessionCart.items.forEach(function(item) {
-        storedUserCart.updateCart(item.product, item.quantity);
+    allCarts.forEach(function(cart) {
+      cart.items.forEach(function(item) {
+        newCart.updateCart(item.product, item.quantity);
         // no need to save newCart, updateCart does that for us
       });
-      sessionCart.remove({ _id: cart._id }).exec();
-    
-    return storedUserCart;
+      theSchema.remove({ _id: cart._id }).exec();
+    });
+    return newCart;
   })
 }
 
@@ -96,32 +96,34 @@ schema.methods.calcTotalPrice = function() {
 }
 
 schema.methods.updateCart = function(productId, quantity) {
-  console.log('order model updateCart:' , 'productId', productId, '| quantity', quantity );
-  var index = _.pluck(this.items, 'product._id')
-    .map(function(id) { return id.toString() })
+  console.log('updateCart',productId, quantity);
+  var index = _.pluck(this.items, 'product')
+    .map(function(obj) { return obj._id.toString() })
     .indexOf(productId);
+    console.log('the index', index);
 
-    console.log(index);
-  if(quantity>0) {
-    if(index != -1) {
-      this.items[index].quantity = quantity;
-    } else {
-      // lookup product price
-      var cart = this;
-      console.log('the update cart this',cart);
-      return Product.findById(productId)
-      .then(function(product) {
-        cart.items.push({
-          product: productId,
-          quantity: quantity,
-          unitPrice: product.price
-        });
-        cart.calcTotalPrice();
-        return cart.save();
-      })
-      // .then(null, function(err) { console.error(err)})
-    }
-  } else {
+
+    if(quantity!=0) {
+      if(index != -1) {
+        this.items[index].quantity += quantity;
+      } else {
+        // lookup product price
+        var cart = this;
+        return Product.findById(productId)
+        .then(function(product) {
+          cart.items.push({
+            product: productId,
+            quantity: quantity,
+            unitPrice: product.price
+          });
+          cart.calcTotalPrice();
+          return cart.save();
+        })
+        // .then(null, function(err) { console.error(err)})
+      }
+  } 
+  else {
+
     if(index != -1) {
       this.items.splice(index,1);
     }
