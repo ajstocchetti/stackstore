@@ -98,8 +98,10 @@ schema.methods.calcTotalPrice = function() {
 
 schema.methods.updateCart = function(productId, quantity) {
   var index = _.pluck(this.items, 'product')
-    .map(function(obj) { return obj.toString() })
-    .indexOf(productId);
+    .map(function(obj) { return obj._id.toString() })
+    console.log(index);
+    index.indexOf(productId);
+    console.log(index);
 
   if(quantity>0) {
     if(index != -1) {
