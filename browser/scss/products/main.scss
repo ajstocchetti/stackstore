@@ -1,0 +1,33 @@
+.product-item {
+  // background: rgba(255, 255, 255, 0.6);
+  a {
+    color: #f30046;
+  }
+}
+
+.cat-group .list-group-item {
+  background: none;
+  color: white;
+  &:hover {
+    background-color: #fC0;
+    color: black;
+  }
+  &.active {
+    background-color: #fC0;
+    color: black;
+  }
+}
+
+.product-detail {
+  color: black;
+  a {
+    color: #f30046;
+  }
+  h4 {
+    color: #f30046;
+  }
+}
+
+.add-form {
+  float: right;
+}

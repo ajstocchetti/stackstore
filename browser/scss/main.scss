@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5 {
+  color: white;
+}
+
 body {
   background: #fdfdfd;
 }
@@ -12,6 +16,10 @@ body {
     display: table;
     clear: both;
   }
+}
+
+#greeting {
+  color: white;
 }
 
 #main {
@@ -54,7 +62,21 @@ body {
   background-color: #369;
 }
 
+body {
+  color: white;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url(http://www.mrwallpaper.com/wallpapers/star-wars-stormtrooper.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+    background-size: cover;
 
+}
 
 @import 'directives/main';
 @import 'home/main';
@@ -64,3 +86,4 @@ body {
 @import 'checkout/main';
 @import 'components/main';
 @import 'cart/main';
+@import 'products/main';
