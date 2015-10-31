@@ -53,7 +53,9 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
         expYear: result.card.exp_year
       }
 
-      PaymentFactory.checkout(order._id, billing);
+      PaymentFactory.checkout($scope.order._id, billing).then(function() {
+        $state.go('home');
+      })
     }
 
   };

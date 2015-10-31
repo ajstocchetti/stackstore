@@ -34,7 +34,6 @@ router.post('/:id', function(req, res, next) {
 module.exports = router;
 
 function checkout(order, userToken) {
-  console.log('in checkout')
   return stripe.charges.create({
     source: userToken,
     amount: order.total,
