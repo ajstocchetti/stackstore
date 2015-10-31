@@ -1,7 +1,8 @@
     <div class="col-md-4 order-summary">
        <h4>Your Order</h4>
+       <p><b>Items:</b> {{ order.items.length }}</p>
        <p><b>Subtotal:</b> {{ order.total | currency }} </p>
        <p><b>Shipping:</b> <span class="free">Free!</span></p>
-       <p>Total: {{ order.total | currency }} </p>
-       <button ui-sref="cart">Edit Cart</button>
+       <p><b>Total:</b> <span class="total">{{ order.total | currency }}<span> </p>
+       <button class="co-btn"ui-sref="cart">Edit Cart</button>
     </div>

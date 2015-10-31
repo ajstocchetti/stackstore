@@ -17,7 +17,6 @@ var schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    // required: true,
     select: false
   },
   salt: {
@@ -47,10 +46,7 @@ var schema = new mongoose.Schema({
     type: Boolean,
     select: false
   },
-  addresses: [addressSchema],
-  productsPurchased: [{
-    type: mongoose.Schema.Types.ObjectId, ref: 'Product'
-  }]
+  addresses: [addressSchema]
 });
 
 

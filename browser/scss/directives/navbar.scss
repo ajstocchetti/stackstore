@@ -26,20 +26,20 @@ navbar {
     cursor: pointer;
     transition: color 0.2s;
     &.active {
-      color: darken(#f31214, 10%);
+      color: darken(#f30046, 10%);
     }
     &:hover {
       background: none;
-      color: #f31214;
+      color: #f30046;
     }
     &:focus {
       background: none;
     }
   }
 
-  .login-button {
+  button.login-button {
     float: right;
-    border: 1px solid black;
+    border: 2px solid black;
     margin-top: 10px;
     background: none;
     outline: none !important;
