@@ -43,7 +43,7 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
       window.alert('it failed! error: ' + result.error.message);
     } else {
       window.alert('success! token: ' + result.id);
-      console.log(order)
+
       var billing = {
         billingAddress: $scope.billingAddress,
         shippingAddress: $scope.shippingAddress,
@@ -54,10 +54,6 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
       }
 
       PaymentFactory.checkout(order._id, billing);
-      // .then(function(result.data.user) {
-      //   $state.go('')
-      // })
-
     }
 
   };

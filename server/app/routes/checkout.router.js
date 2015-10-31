@@ -6,7 +6,6 @@ var _ = require('lodash');
 
 router.post('/:id', function(req, res, next) {
 
-  
   Order.findById(req.params.id)
   .then(function(order) {
 
@@ -29,6 +28,7 @@ router.post('/:id', function(req, res, next) {
       }
     })
   })
+
 })
 
 module.exports = router;
@@ -43,6 +43,7 @@ function checkout(order, userToken) {
   })
 }
 
+
 function updateOrder(order, req) {
   order.shipping.address.push(req.body.shippingAddress);
   order.billing.address.push(req.body.billingAddress);
@@ -53,4 +54,3 @@ function updateOrder(order, req) {
   return order
 }
 
-function handleStripeError(){}
