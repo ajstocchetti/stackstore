@@ -29,14 +29,15 @@ var productSchema = new mongoose.Schema({
     type: String
   },
   category: {
-    type: [String]
+    type: [String],
+    default: 'Zapper'
   },
   inventory: {
     type: Number
   },
   image: {
     type: [String],
-    default: 'images/weapon_1.jpg'
+    default: 'images/weapon_3.jpg'
   },
   dateIntroduced: {
     type: Date,
@@ -47,7 +48,8 @@ var productSchema = new mongoose.Schema({
   },
   reviews: [reviewSchema],
   ratings: {
-    type: Number
+    type: Number,
+      default: 5
   }
 });
 

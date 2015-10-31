@@ -54,14 +54,14 @@
                 <div class="form-group">
                     <input id= "search" type="text" class="form-control" placeholder="Search" ng-model="productSearch">
                 </div>
-                <a ui-sref="product-add">Click to Add a Product</a>
             </form>
+            <a class="pull-right" style="margin-right: 10%; color: #00cc99;" ui-sref="product-add"><mark>Click to Add a Product</mark></a>
             <div class="container">
             </div>
             <div  ng-repeat="product in products | orderBy:'name' | filter: productSearch ">
                 <div class = 'row container'>
-                    <h3>{{product.name}}</h3>
-                    <ul class="nav nav-pills">
+                    <h3 style="margin-left: 50%;">{{product.name}}</h3>
+                    <ul style="margin-left: 40%;" class="nav nav-pills">
                         <li> <button class ="btn-danger" ng-click="deleteProduct(product)">Delete Item</button></li>
                         <li> <button class ="btn-warning" >Photo Management</button></li>
                         <li> <button ng-hide="product.category.length==0" class ="btn-info" ng-click="categoryManagement(product.name)">Category Management</button></li>
@@ -70,6 +70,7 @@
                     </ul>
                 </div>
                 <category-edit categories='product.category' id='product._id' ng-hide="product.name != catEdit"></category-edit>
+
                 <product-item  product="product"></product-item>
 
             </div>
