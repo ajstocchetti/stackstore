@@ -34,6 +34,7 @@ var schema = new mongoose.Schema({
 });
 
 schema.statics.getUserCart = function(req) {
+  console.log('order model getUserCart');
   var searches = [];
   if(req.user && req.user._id) {
     searches.push(this.model('Order').find({ user: req.user._id, status: 'cart' }).populate('items.product'))
@@ -53,6 +54,7 @@ schema.statics.getUserCart = function(req) {
 
 // when a user logs in, update their cart with their user
 schema.statics.signInCart = function(req) {
+  console.log("order model signInCart", this);
   if( !req.user || !req.session ) {
     // user or session missing
     console.error("Could not merge carts - no session or user")
@@ -64,19 +66,17 @@ schema.statics.signInCart = function(req) {
     this.model('Order').find({ user: req.user._id, status: 'cart' })
   ];
   return Promise.all(searches).then(function(carts) {
-    var newCart = new theSchema({
-      user: req.user._id,
-      status: 'cart'
-    })
+    
+    var sessionCart    = carts[0];
+    var storedUserCart = carts[1];
     var allCarts = carts[0].concat(carts[1]);
-    allCarts.forEach(function(cart) {
-      cart.items.forEach(function(item) {
-        newCart.updateCart(item.product, item.quantity);
+      sessionCart.items.forEach(function(item) {
+        storedUserCart.updateCart(item.product, item.quantity);
         // no need to save newCart, updateCart does that for us
       });
-      theSchema.remove({ _id: cart._id }).exec();
-    });
-    return newCart;
+      sessionCart.remove({ _id: cart._id }).exec();
+    
+    return storedUserCart;
   })
 }
 
@@ -90,16 +90,19 @@ schema.methods.calcTotalPrice = function() {
 }
 
 schema.methods.updateCart = function(productId, quantity) {
-  var index = _.pluck(this.items, 'product')
-    .map(function(obj) { return obj.toString() })
+  console.log('order model updateCart:' , 'productId', productId, '| quantity', quantity );
+  var index = _.pluck(this.items, 'product._id')
+    .map(function(id) { return id.toString() })
     .indexOf(productId);
 
+    console.log(index);
   if(quantity>0) {
     if(index != -1) {
       this.items[index].quantity = quantity;
     } else {
       // lookup product price
       var cart = this;
+      console.log('the update cart this',cart);
       return Product.findById(productId)
       .then(function(product) {
         cart.items.push({

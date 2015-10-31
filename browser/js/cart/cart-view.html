@@ -8,13 +8,13 @@
             <th></th>
             <th></th>
             <th>Quantity</th>
-            <th>Amount</th>
-            <th>Total</th>
+            <th>Unit Price</th>
+            <th>Item Total</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in cart.items track by $index">
-            <td><span ng-click="" class="glyphicon glyphicon-remove"></span></td>
+            <td><span ng-click="remove(item.product._id)" class="glyphicon glyphicon-remove"></span></td>
 
             <td>{{item.product.name}}</td>
             <td>{{item.product.type}}</td>
@@ -22,7 +22,7 @@
             	&nbsp;&nbsp;{{item.quantity | number}}&nbsp;&nbsp;
                 <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
             <td>{{ item.unitPrice | currency}}</td>
-            <td>{{ cart.total | currency }}</td>
+            <td>{{ item.unitPrice * item.quantity | currency }}</td>
         </tr>
 		
 	</tbody>

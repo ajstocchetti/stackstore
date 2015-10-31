@@ -103,8 +103,8 @@ router.post('/cart', function(req, res, next) {
     .then(null, next)
 });
 
-router.delete('/cart', function(req, res, next) {
-  var prodId = req.body.product;
+router.delete('/cart/:id', function(req, res, next) {
+  var prodId = req.params.id
   if(!prodId)
     return res.send(400);
 
