@@ -33,9 +33,6 @@ app.factory('ReviewsFactory', function ($http) {
             author: review.author,
             date: Date.now()
         };
-
-        console.log(config);
-
         return $http.post('/api/products/'+productID+'/reviews/', config )
             .then(function (results) {
                 return results.data;
