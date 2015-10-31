@@ -1,5 +1,6 @@
 <button class="btn btn-danger"
   ng-show="order.status==='created' || order.status==='processing'"
-  ng-click="">
+  ng-click="cancel(order._id)"
+  >
   Cancel Order
 </button>
