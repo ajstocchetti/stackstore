@@ -6,7 +6,7 @@
         </h4>
         <p><b>Type:</b> {{product.type}} <b>Capacity:</b>{{product.capacity}} </p>
         <p>{{product.category[0]}}  {{product.category[1]}}</p>
-        <button type="submit" ng-click="add(product._id)">Add to Cart</button>
+        <button type="submit" class="add-btn"ng-click="add(product._id)">Add to Cart</button>
     </div>
     <div class="ratings">
         <a class="pull-right"  ui-sref="reviewsList({id: product._id})" >{{product.reviews.length}}</a>

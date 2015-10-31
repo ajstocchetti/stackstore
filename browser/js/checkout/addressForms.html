@@ -1,3 +1,6 @@
+<div class="col-md-8">
+  <button ng-hide="shippingAddressForm.$invalid"class="continue" type="button" ng-click="confirmAddress()">Continue</button>
+</div>
 <div class="col-md-4">
   <h3>Shipping Address</h3>
   <form id="shippingAddress" name="shippingAddressForm">
@@ -6,25 +9,46 @@
       {{ error }}
     </alert>
 
-    <div class="form-group">
+    <div class="form-group address">
       <label for="line1">Address</label>
-      <input type="text" ng-model="shippingAddress.line1" class="form-control" id="shippingAddressLine1" placeholder="Address Line 1">
-      <input type="text" ng-model="shippingAddress.line2" class="form-control" id="shippingAddressLine2" placeholder="Address Line 2">
+        <input 
+        required type="text" 
+        ng-model="shippingAddress.line1" 
+        class="form-control"  
+        id="shippingAddressLine1" 
+        placeholder="Address Line 1" />
+        <input type="text" 
+        ng-model="shippingAddress.line2" 
+        class="form-control" 
+        id="shippingAddressLine2" 
+        placeholder="Address Line 2">
       <label for="city">City</label>
-      <input type="text" ng-model="shippingAddress.city" class="form-control" id="shippingAddressLineCity" placeholder="City">
+        <input type="text" 
+        ng-model="shippingAddress.city" 
+        class="form-control" 
+        id="shippingAddressLineCity" 
+        placeholder="City">
       <label for="state">State</label>
-      <input type="text" ng-model="shippingAddress.state" class="form-control" id="sippingAddressState" placeholder="State">
+        <input type="text" 
+        ng-model="shippingAddress.state" 
+        class="form-control" 
+        id="sippingAddressState" 
+        placeholder="State">
       <label for="zip">Zip</label>
-      <input type="text" ng-model="shippingAddress.zip" class="form-control" id="shippingAddressZip" placeholder="Zip">
+        <input 
+        type="text" 
+        ng-model="shippingAddress.zip" 
+        class="form-control" 
+        id="shippingAddressZip" 
+        placeholder="Zip">
     </div>
   </form>
-
 </div>
 
 <div class="col-md-4">
   <h3>Billing Address</h3>
   <form id="billingAddress" name="billingAddressForm">
-    <div class="form-group">
+    <div class="form-group address">
       <label for="line1">Address</label>
       <input type="text" ng-model="billingAddress.line1" class="form-control" id="addressLine1" placeholder="Address Line 1">
       <input type="text" ng-model="billingAddress.line2" class="form-control" id="addressLine2" placeholder="Address Line 2">
@@ -35,8 +59,8 @@
       <label for="zip">Zip</label>
       <input type="text" ng-model="billingAddress.zip" class="form-control" id="addressZip" placeholder="Zip">
     </div>
-    <button type="button" ng-click="copyShipping()">Same as shipping</button>
+    <button class="co-btn"type="button" ng-click="copyShipping()">Same as shipping</button>
   </form>
  
-    <button type="button" ng-click="confirmAddress()">Continue</button>
+    
 </div>

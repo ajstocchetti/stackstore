@@ -1,0 +1,69 @@
+.order-summary {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding-bottom: 15px;
+  p {
+    font-size: 1.2em;
+  }
+
+}
+.free {
+    font-weight: bold;
+    color: green;
+}
+
+.co-btn {
+  border: 2px solid black;
+  background: none;
+  background-color: #fC0;
+  transition: color 0.2s;
+  &:hover {
+    background-color: grey;
+    color: white;
+  }
+}
+
+.total {
+  font-weight: bold;
+  color: #f30046;
+}
+
+.guest {
+  width: 100%;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.address {
+  input[type='text'] {
+    margin-bottom: 2px;
+  }
+}
+
+.continue {
+  float: right;
+  border: 2px solid black;
+  background: none;
+  background-color: #0c0;
+  transition: color 0.2s;
+  &:hover {
+    background-color: lighten(#0c0, 20%);
+  }
+}
+
+
+.err span {
+  color: red;
+}
+
+.checkout {
+  margin-top: 10px;
+  border: 2px solid black;
+  background: none;
+  background-color: #0c0;
+  transition: color 0.2s;
+  &:hover {
+    background-color: lighten(#0c0, 20%);
+  }
+}
