@@ -106,6 +106,7 @@ schema.methods.updateCart = function(productId, quantity) {
     if(quantity!=0) {
       if(index != -1) {
         this.items[index].quantity += quantity;
+        if(this.items[index].quantity<=0){this.items.splice(index, 1)}
       } else {
         // lookup product price
         var cart = this;
