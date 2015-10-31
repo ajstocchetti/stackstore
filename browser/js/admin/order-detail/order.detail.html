@@ -5,7 +5,7 @@
   <h2>Order Detail</h2>
 
     <div class="col-md-10">
-        <ul class="list-group">
+        <ul class="list-group user-info">
             <li class="list-group-item"><b>Order #:</b>  {{order._id}}</li>
             <li class="list-group-item"><b>User:</b>     {{order.user}}</li>
             <li class="list-group-item"><b>Status:</b> {{order.status}}</li>
@@ -17,7 +17,7 @@
                         <option value="cancelled">Cancel</option>
                         <option value="completed">Completed</option>
                     </select>
-                    <button type="submit">Submit</button>
+                    <button class="admin-btn"type="submit">Submit</button>
                 </form>
             </li>
         </ul>
@@ -27,7 +27,7 @@
 
         <div class="col-md-10">
             <h2>Items</h2>
-            <ul class="list-group" ng-repeat="item in order.items">
+            <ul class="list-group user-info" ng-repeat="item in order.items">
                 <li class="list-group-item">Product: {{item.product}}</li>
                 <li class="list-group-item">Quantity: {{item.quantity}}</li>
             </ul>

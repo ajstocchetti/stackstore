@@ -6,25 +6,25 @@
     <h2>User Detail</h2>
 
     <div class="col-md-10">
-        <ul class="list-group">
+        <ul class="list-group user-info">
             <li class="list-group-item"><b>ID #:</b>  {{user._id}}</li>
             <li class="list-group-item"><b>Email:</b>     {{user.email}}</li>
-            <li class="list-group-item"><b>Is Admin:</b> {{user.isAdmin}}</li>
+            <li class="list-group-item"><b>Admin:</b> {{user.isAdmin}}</li>
         </ul>
     </div>
-    <button  data-ng-click="passwordReset(user._id)" class="btn btn-default">Reset User Password</button>
-    <button  data-ng-click="toggleAdmin(user._id)" class="btn btn-default">Toggle Admin Rights</button>
+    <button  data-ng-click="passwordReset(user._id)" class="admin-btn">Reset User Password</button>
+    <button  data-ng-click="toggleAdmin(user._id)" class="admin-btn">Toggle Admin Rights</button>
     <div class="col-md-10">
 
         <ul class = "list-group" ng-repeat="product in user.productsPurchased">
             <li class="list-group-item">{{product}}</li>
         </ul>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 user-info">
         <p>Orders</p>
             <ul class = "list-group" ng-repeat="order in user.orders">
                 <div class="well">
-                <p>{{$index+1}}</p>
+                <!-- <p>{{$index+1}}</p> -->
                     <li class="list-group-item"><b>Order Id:     </b>{{order._id}}</li>
                     <li class="list-group-item"><b>Order Billing Address     </b>{{order.billing.address}}</li>
                     <p>Ordered Items:</p>

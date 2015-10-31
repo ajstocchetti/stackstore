@@ -1,0 +1,58 @@
+.product-container {
+  .panel-info > .panel-heading {
+    background: $accent-color;
+    color: black;
+  }
+  .panel {
+    background: none;
+  }
+  .panel-body {
+    background: none;
+    a {
+      color: $link-color;
+    }
+  }
+
+  .list-group-item {
+    background: none;
+    &:hover {
+      background: $accent-color;
+      opacity: 0.8;
+      color: black;
+      h3 {
+        color: black;
+      }
+    }
+  }
+  
+}
+
+.admin-btn {
+  border: 2px solid black;
+  background: none;
+  background-color: #FC3;
+  transition: color 0.2s;
+  color: black;
+  &:hover {
+    background-color: #f30046;
+    color: black;
+  }
+}
+
+.user-info {
+  .list-group-item {
+    background: none;
+    &:hover {
+      background: $accent-color;
+      opacity: 0.8;
+      color: black;
+      h3 {
+        color: black;
+      }
+    }
+  }
+  .well {
+    background: none;
+    border: none;
+  }
+}
