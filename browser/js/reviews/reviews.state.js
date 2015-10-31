@@ -7,11 +7,15 @@ app.config(function ($stateProvider) {
         .state('reviewsList', {
             url: '/:id/reviews',
             templateUrl: 'js/reviews/reviews.html',
-            controller: 'productDetailCtrl',
+            controller: 'reviewsListCtrl',
             resolve: {
                 product: function(ProductList, $stateParams ) {
                     return ProductList.getOne($stateParams.id)
                 }
             }
+            
+          
         })
 });
+
+
