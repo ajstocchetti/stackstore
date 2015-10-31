@@ -25,9 +25,10 @@ app.factory('CartFactory', function($http, $state) {
       product: productId,
       quantity: quantity
     }
-    $http.post('/api/order/cart', config)
+    return $http.post('/api/order/cart', config)
     .then(function(resp) {
       theCart = resp.data;
+      return theCart
     })
   };
 
@@ -41,11 +42,11 @@ app.factory('CartFactory', function($http, $state) {
 
   function removeFromCart(productId) {
     console.log('CartFactory removeFromCart', productId);
-    $http.delete('/api/order/cart/' + productId)
+    return $http.delete('/api/order/cart/' + productId)
     .then(function(resp) {
       theCart = resp.data;
+      return theCart
     })
-    $state.go('cart')
   };
 
   function mergeCartOnLogin() {
