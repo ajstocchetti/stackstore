@@ -38,7 +38,7 @@ app.factory('CartFactory', function($http, $state) {
       quantity: 1
     };
     updateCart(productId, 1);
-    swal("Added to Cart!", "In my experience there is no such thing as luck.", "success")
+    swal("Added to Cart!", "In my experience there is no such thing as luck.", "success");
   };
 
   function removeFromCart(productId) {

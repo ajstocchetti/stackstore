@@ -1,4 +1,6 @@
 app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentFactory, $state) {
+  if (!orderData.order || orderData.order.status !== "cart") { $state.go('home')}
+
   $scope.order = orderData.order;
   $scope.step = orderData.step;
   $scope.login = {};
@@ -43,9 +45,9 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
   $scope.stripeCallback = function (data, result) {
     if (result.error) {
       $scope.error = result.error.message;
-      window.alert('it failed! error: ' + result.error.message);
+      console.log(result.error.message);
     } else {
-      window.alert('success! token: ' + result.id);
+      console.log('success! token: ' + result.id);
 
       var billing = {
         billingAddress: $scope.billingAddress,
@@ -56,7 +58,12 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
         expYear: result.card.exp_year
       }
 
-      PaymentFactory.checkout($scope.order._id, billing).then(function() {
+      PaymentFactory.checkout($scope.order._id, billing).then(function(data) {
+        swal({
+          title: "Checkout Complete!",
+          text: "Order#: " + data._id + "\n" +"Total Cost: " + data.total,
+          imageUrl: '/images/deathstar2.ico'
+        });
         $state.go('home');
       })
     }

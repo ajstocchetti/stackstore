@@ -5,6 +5,7 @@
   p {
     font-size: 1.2em;
   }
+  background: rgba(255, 255, 255, 0.6);
 
 }
 .free {
@@ -15,8 +16,9 @@
 .co-btn {
   border: 2px solid black;
   background: none;
-  background-color: #fC0;
+  background-color: #fC3;
   transition: color 0.2s;
+  color: black;
   &:hover {
     background-color: grey;
     color: white;
@@ -25,7 +27,7 @@
 
 .total {
   font-weight: bold;
-  color: #f30046;
+  color: darken(#f30046, 15%);
 }
 
 .guest {

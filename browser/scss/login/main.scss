@@ -1,4 +1,15 @@
 #login-form, #signup-form {
   width: 60%;
   margin: 0 auto;
+  .signin {
+  border: 2px solid black;
+  background: none;
+  background-color: #FC3;
+  transition: color 0.2s;
+  color: black;
+  &:hover {
+    background-color: #f30046;
+    color: black;
+  }
+}
 }

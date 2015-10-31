@@ -5,6 +5,7 @@
   transition: color 0.2s;
   &:hover {
     background-color: #3F0;
+    transition: color 0.2s;
     color: black;
   }
 }

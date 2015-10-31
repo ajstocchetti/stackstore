@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-md-4" >
                 <p class="lead">Categories</p>
-                <div class="list-group" >
-                    <a ng-repeat="category in categories" ng-class="{active: activeCat == category}" ng-click="filterByCategory(category)" href="#" class="list-group-item">{{category}}</a>
+                <div class="list-group cat-group">
+                    <a ng-repeat="category in categories" ng-class="{active: activeCat == category}" ng-click="filterByCategory(category)" href="#" class="list-group-item cat-item">{{category}}</a>
                 </div>
             </div>
 

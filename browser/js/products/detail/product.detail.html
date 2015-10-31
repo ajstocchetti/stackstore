@@ -19,7 +19,7 @@
 <!--</div>-->
 
 <div class="container">
-    <div class="thumbnail">
+    <div class="thumbnail product-detail">
         <img class="img-responsive" src="{{product.image[0]}}" alt="product image">
         <div class="caption-full">
             <h4 class="pull-right">{{product.price | currency}}</h4>
@@ -28,18 +28,19 @@
             <p>{{product.description}}</p>
             <p>Learn More About This Product's History
                 <strong><a href="{{product.source}}">here</a></strong>
-            <form>
-                <button class="btn-submit" type="submit" ng-click="update(product._id, QTY)">{{update}}Add to Cart</button>
+            <form class="add-form">
                 <label for="QTY" >Quantity:</label>
                 <input ng-model='QTY' class="QTY" type="number" id="QTY" name="QTY">
+                 <button class="btn-submit add-btn" type="submit" ng-click="update(product._id, QTY)">{{update}}Add to Cart</button>
             </form>
+            <div class="spacer" style="clear: both;"></div>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="ratings">
         <p class="pull-right">Reviews</p>
-        <div  ng-repeat = "review in product.reviews">-->
+        <div  ng-repeat = "review in product.reviews">
             <review-list review = "review" readonly="rating.isReadOnly"></review-list>
         </div>
         </p>
