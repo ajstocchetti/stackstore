@@ -3,18 +3,19 @@ app.factory('CartFactory', function($http) {
     var theCart = {};
 
     return {
-    cart: theCart,
-    initialize: initializeCart,
-    addOne: addOne,
-    update: updateCart,
-    remove: removeFromCart,
-    merge: mergeCartOnLogin
+    cart       : theCart,
+    initialize : initializeCart,
+    addOne     : addOne,
+    update     : updateCart,
+    remove     : removeFromCart,
+    merge      : mergeCartOnLogin
   };
 
   function initializeCart() {
     return $http.get('/api/order/current')
     .then(function(resp) {
       theCart = resp.data;
+      return resp.data;
     })
   }
 
@@ -38,8 +39,7 @@ app.factory('CartFactory', function($http) {
   };
 
   function removeFromCart(productId) {
-    var config = { product: productId };
-    $http.delete('/api/order/cart', config)
+    $http.delete('/api/order/cart/' + productId)
     .then(function(resp) {
       theCart = resp.data;
     })

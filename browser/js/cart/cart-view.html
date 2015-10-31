@@ -1,0 +1,44 @@
+
+
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th></th>
+            <th></th>
+            <th></th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Item Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in cart.items track by $index">
+            <td><span ng-click="remove(item.product._id)" class="glyphicon glyphicon-remove"></span></td>
+
+            <td>{{item.product.name}}</td>
+            <td>{{item.product.type}}</td>
+            <td><span class="glyphicon glyphicon-minus" ></span>
+            	&nbsp;&nbsp;{{item.quantity | number}}&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
+            <td>{{ item.unitPrice | currency}}</td>
+            <td>{{ item.unitPrice * item.quantity | currency }}</td>
+        </tr>
+		
+	</tbody>
+
+	<tfoot>
+		<tr>
+			<td>Total:</td>
+		</tr>
+		<tr>
+			<td>{{cart.total | currency}}</td>
+		</tr>
+	</tfoot>
+</table>
+
+
+<pre>
+	
+	{{cart | json}}
+</pre>
