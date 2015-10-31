@@ -104,7 +104,6 @@ schema.methods.updateCart = function(productId, quantity) {
     console.log('the index', index);
 
 
-
     if(quantity!=0) {
       if(index != -1) {
         this.items[index].quantity += quantity;
