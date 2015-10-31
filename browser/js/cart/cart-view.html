@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in cart.items track by $index">
-            <td><span ng-click="remove(item.product._id)" ui-sref="cart" class="glyphicon glyphicon-remove remove-btn"></span></td>
+            <td><span ng-click="remove(item.product._id)" class="glyphicon glyphicon-remove remove-btn"></span></td>
             <td>{{item.product.name}}</td>
             <td>{{item.product.type}}</td>
             <td><span class="glyphicon glyphicon-minus"   ng-click="update(item.product._id, -1)"></span>
