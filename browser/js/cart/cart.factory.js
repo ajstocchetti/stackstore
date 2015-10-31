@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http) {
+app.factory('CartFactory', function($http, $state) {
 
     var theCart = {};
 
@@ -20,13 +20,15 @@ app.factory('CartFactory', function($http) {
   }
 
   function updateCart(productId, quantity) {
+    console.log("CartFactory update: ", "productId:", productId, "quantity: ", quantity);
     var config = {
       product: productId,
       quantity: quantity
     }
-    $http.post('/api/order/cart', config)
+    return $http.post('/api/order/cart', config)
     .then(function(resp) {
       theCart = resp.data;
+      return theCart
     })
   };
 
@@ -40,9 +42,11 @@ app.factory('CartFactory', function($http) {
   };
 
   function removeFromCart(productId) {
-    $http.delete('/api/order/cart/' + productId)
+    console.log('CartFactory removeFromCart', productId);
+    return $http.delete('/api/order/cart/' + productId)
     .then(function(resp) {
       theCart = resp.data;
+      return theCart
     })
   };
 
