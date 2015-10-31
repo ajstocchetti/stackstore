@@ -66,8 +66,8 @@ schema.statics.signInCart = function(req) {
   }
   var theSchema = this;
   var searches = [
-    this.model('Order').find({ session: req.session.id, status: 'cart' }).populate('items.product'),
-    this.model('Order').find({ user: req.user._id, status: 'cart' }).populate('items.product')
+    this.model('Order').find({ session: req.session.id, status: 'cart' }.populate('items.product')),
+    this.model('Order').find({ user: req.user._id, status: 'cart' }.populate('items.product'))
   ];
   return Promise.all(searches).then(function(carts) {
     var newCart = new theSchema({
