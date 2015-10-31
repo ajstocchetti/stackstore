@@ -5,30 +5,30 @@ var router = require('express').Router();
 var _ = require('lodash');
 
 router.post('/:id', function(req, res, next) {
-  console.log(req.body);
-  
-  Order.findOne(req.params.id)
-  .then(function(order) {
-    // console.log(order)
-    var o = savePaymentDetails(order, req)
-    console.log(o)
-    // checkout(order, req.body.id).then(function(result) {
-      
-    //   res.json(result);
-     res.json(o)
- 
 
+  
+  Order.findById(req.params.id)
+  .then(function(order) {
+
+    checkout(order, req.body.stripeToken)
+    .then(function(result) {
+      var updatedOrder = updateOrder(order, req)
+      return updatedOrder.save()
     })
-    // .then(null, function(err) {
-    //   if (err.type === 'StripeCardError') {
-    //     console.log(err.message)
-    //     res.status(404).json(err.message)
-    //   } else {
-    //     console.log(err, err.type, err.message)
-    //     res.status(400).json(err.message)
-    //   }
-    // })
-  // })
+    .then(function(savedOrder) {
+      console.log(savedOrder);
+      res.json(savedOrder);
+    })
+    .then(null, function(err) {
+      if (err.type === 'StripeCardError') {
+        console.log(err.message)
+        res.status(404).json(err.message)
+      } else {
+        console.log(err, err.type, err.message)
+        res.status(400).json(err.message)
+      }
+    })
+  })
 })
 
 module.exports = router;
@@ -43,11 +43,14 @@ function checkout(order, userToken) {
   })
 }
 
-function savePaymentDetails(order, req) {
+function updateOrder(order, req) {
   order.shipping.address.push(req.body.shippingAddress);
   order.billing.address.push(req.body.billingAddress);
   order.billing.last4 = req.body.last4;
   order.billing.expMonth = req.body.expMonth;
   order.billing.expYear = req.body.expYear;
+  order.status = 'created'
   return order
 }
+
+function handleStripeError(){}

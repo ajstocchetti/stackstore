@@ -1,16 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">Confirm</div>
-    <div class="col-md-3">Destination</div>
+    <div class="col-md-3">Address</div>
     <div class="col-md-3">Payment</div>
     <div class="col-md-3">Complete</div>
   </div>
+  <h3>Checkout: {{ step }}</h3>
+  <pre>{{ user | json}}</pre>
   <div class="row">
       <div class="col-md-4">
       <order-summary order="order"></order-summary>
     </div>
 
-    <div class="col-md-4" ng-show="step === 'confirm' && !isloggedIn">
+    <div class="col-md-4" ng-show="step === 'confirm' && !user">
       <h4>Login</h4>
       <form name="login-form">
         <div>
@@ -28,12 +30,12 @@
     </form>
     </div>
 
-    <div class="col-md-4" ng-show="step === 'confirm' && !isloggedIn">
+    <div class="col-md-4" ng-show="step === 'confirm' && !user">
       <button btn  ng-click="confirmOrder()">Checkout As Guest</button>
     </div>
 
     <!-- shipping form -->
-    <div ng-show="step === 'shipping'">
+    <div ng-show="step === 'shipping' || u">
       <address-form></address-form>
     </div>
     
