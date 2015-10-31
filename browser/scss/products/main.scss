@@ -9,8 +9,8 @@
   background: none;
   color: white;
   &:hover {
-    background-color: #fC0;
-    color: black;
+    background: rgb(255, 204, 0, 0.7);
+
   }
   &.active {
     background-color: #fC0;

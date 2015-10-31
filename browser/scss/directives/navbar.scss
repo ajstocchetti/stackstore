@@ -2,8 +2,8 @@ navbar {
 
   display: block;
   background: none;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
+  // border-bottom: 1px solid black;
+  // box-shadow: 1px 1px 14px -3px black;
 
   .container {
     width: 91%;
@@ -43,6 +43,9 @@ navbar {
     margin-top: 10px;
     background: none;
     outline: none !important;
+    &:hover {
+      color: #f30046;
+    }
   }
 
   .welcome {
@@ -54,6 +57,9 @@ navbar {
     a {
       color: #f30046;
       cursor: pointer;
+    }
+    .msg {
+      padding-right: 10px;
     }
   }
 
