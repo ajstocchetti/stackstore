@@ -19,6 +19,12 @@ app.filter("isntArray", function() {
     };
 });
 
+app.filter("importantCategories", function(){
+    return function(input){
+        return (['number', '__v','reviews', 'dateIntroduced', 'image', 'category', 'range'].indexOf(input)==-1)
+    }
+});
+
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
 

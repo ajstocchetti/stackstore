@@ -22,27 +22,29 @@
     </div>
     <div class="col-md-10">
         <p>Orders</p>
-        <ul class = "list-group" ng-repeat="(key, value) in user.orders">
-            <li class="list-group-item">{{key}} : {{value}}</li>
-        </ul>
+            <ul class = "list-group" ng-repeat="order in user.orders">
+                <div class="well">
+                <p>{{$index+1}}</p>
+                    <li class="list-group-item"><b>Order Id:     </b>{{order._id}}</li>
+                    <li class="list-group-item"><b>Order Billing Address     </b>{{order.billing.address}}</li>
+                    <p>Ordered Items:</p>
+                    <ul ng-repeat="item in order.items">
+                        <li class="list-group-item"><b>Name:    </b>{{item.product.name}} <b>Qty:     </b> {{item.quantity}}</li>
+                    </ul>
+                </div>
+            </ul>
     </div>
 
-    <div class="col-md-10">
-        <p>Reviews</p>
-        <ul class = "list-group" ng-repeat="(key, value) in user.reviews">
-            <li class="list-group-item">{{key}} : {{value}}</li>
-        </ul>
-    </div>
 
 
 
-    <div class="col-md-10">
-       <h2>User Detail</h2>
-        <pre>
+    <!--<div class="col-md-10">-->
+       <!--<h2>User Detail</h2>-->
+        <!--<pre>-->
 
-            {{user | json}}
+            <!--{{user | json}}-->
 
-        </pre>
-    </div>
+        <!--</pre>-->
+    <!--</div>-->
 
 </div>

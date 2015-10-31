@@ -49,18 +49,19 @@ router.get('/me', function(req, res, next) {
 
 // Get user profile - right now you can only view your own unless admin
 router.get('/:id', hasUserAccess, function(req, res, next) {
-  var reviewPromise = req.requestedUser.getReviews();
-  var orderPromise = req.requestedUser.getOrders();
+    var reviewPromise = req.requestedUser.getReviews();
+    var orderPromise = req.requestedUser.getOrders();
 
-  Promise.join(reviewPromise, orderPromise, function(orders, reviews) {
-    var userObj = req.requestedUser.toObject()
-    userObj.orders = orders;
-    userObj.reviews = reviews;
-    res.json(userObj);
-  })
-  .then(null, next);
+    Promise.join(reviewPromise, orderPromise, function(reviews, orders) {
+        var userObj = req.requestedUser.toObject()
+        userObj.orders = orders;
+        userObj.reviews = reviews;
+        res.json(userObj);
+    })
+        .then(null, next);
 
-})
+});
+
 
 
 

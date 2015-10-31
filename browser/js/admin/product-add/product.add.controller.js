@@ -18,12 +18,17 @@ app.controller('ProductAddCtrl', function ($scope, AdminFactory, $state) {
             'capacity': $scope.newCapacity,
             'manufacturer': $scope.newMan,
             'image': [$scope.newImage],
-            'description': $scope.description
+            'description': $scope.newDescription,
+            'type': $scope.newType,
+            'weight': $scope.newWeight
+
         };
 
         AdminFactory.addNewProduct(config)
             .then(function (result) {
                 $state.go('admin-panel');
+                $scope.messages = 'New Product Added.';
+
             }).catch(function(err){
                 $scope.messages = 'There was an error processing your submission.';
                 console.log(err);
