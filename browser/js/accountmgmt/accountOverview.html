@@ -8,7 +8,7 @@
       <div class="panel-body">
         Email: {{ me.email }}
         <br> ID: {{me._id}}
-        <div ng-show="!!me.isAdmin">You are an administrator</div>
+        <div ng-show="!!me.isAdmin">You are an administrator. Go to the <a ui-sref="admin-panel">Admin Panel</a></div>
       </div>
     </div>
     <div class="panel panel-info">
