@@ -1,1 +1,16 @@
-{{ product.name }}
+<h2>{{ product.name }}</h2>
+<img height=150 style="max-height: 150px; max-width=320px;" src="{{product.image[0]}}" alt="{{ product.name }}">
+<h3>Leave a Review</h3>
+<span>Reviews must be at least ten characters long</span>
+
+<form name="userReviewForm" ng-submit="save(userReview)">
+  <textarea ng-model="userReview.body" rows="6" cols="75" required="true" ng-minlength="10"></textarea>
+
+  <div>
+    <span class="glyphicon glyphicon-minus" ng-click="ratingDown()"></span>
+    <star-ratings product=userReview readonly=false></star-ratings>
+    <span class="glyphicon glyphicon-plus" ng-click="ratingUp()"></span>
+  </div>
+  <button type="submit" ng-disabled="userReviewForm.$invalid">Post Review</button>
+
+</form>
