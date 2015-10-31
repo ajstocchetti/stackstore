@@ -20,7 +20,8 @@
             <!-- <td><a><span ng-click="remove(item.product._id)" ui-sref="cart"class="glyphicon glyphicon-remove"></span></a></td> -->
             <td><span ng-click="remove(item.product._id)" class="glyphicon glyphicon-remove remove-btn"></span></td>
 
-            <td>{{item.product.name}}</td>
+            <td><a ui-sref="productDetail({ id: item.product._id })">{{item.product.name}}</a></td>
+            
             <td>{{item.product.type}}</td>
             <td><span class="glyphicon glyphicon-minus"   ng-click="update(item.product._id, -1)"></span>
             	&nbsp;&nbsp;{{item.quantity | number}}&nbsp;&nbsp;
