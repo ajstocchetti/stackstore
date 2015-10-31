@@ -32,3 +32,13 @@ input[type="password"]:focus,
 input[type="password"].focus {
   border: solid 5px #969696;
 }
+
+input[type="email"] {
+  padding: 10px;
+  border: solid 5px #c9c9c9;
+  transition: border 0.3s;
+}
+input[type="email"]:focus,
+input[type="email"].focus {
+  border: solid 5px #969696;
+}
