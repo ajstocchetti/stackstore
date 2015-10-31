@@ -1,8 +1,8 @@
-app.controller('checkoutCtrl', function($scope, order, step, user, AuthService, PaymentFactory, $state) {
-  $scope.order = order;
-  $scope.step = step;
+app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentFactory, $state) {
+  $scope.order = orderData.order;
+  $scope.step = orderData.step;
   $scope.login = {};
-  $scope.user = user;
+  $scope.user = orderData.user;
   $scope.error = null;
   $scope.shippingAddress = {};
   $scope.billingAddress = {};
@@ -16,6 +16,7 @@ app.controller('checkoutCtrl', function($scope, order, step, user, AuthService, 
     .then(function(result) {
       $scope.user = result.data;
       $scope.step = 'address';
+      $scope.error = null;
     })
     .catch(function(err) {
       $scope.error = 'Invalid login credentials.';
@@ -23,7 +24,7 @@ app.controller('checkoutCtrl', function($scope, order, step, user, AuthService, 
   }
 
   $scope.confirmOrder = function() {
-    $scope.step = "shipping";
+    $scope.step = "address";
     $scope.error = null;
   }
 
