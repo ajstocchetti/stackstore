@@ -1,4 +1,6 @@
 <h3>{{ item.product.name }}</h3>
-<a ui-sref="productDetail({ id: item.product._id })">[Product Details]</a>
+<a ui-sref="productDetail({ id: item.product._id })">Product Details</a>
+&nbsp;|&nbsp;
+<a ui-sref="editReview({id:  item.product._id })">Leave a Review</a>
 <br>
 {{ item.quantity }} x {{ item.unitPrice | currency }}
