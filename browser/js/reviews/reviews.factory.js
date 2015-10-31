@@ -7,7 +7,8 @@
 app.factory('ReviewsFactory', function ($http) {
     return {
         getAll: getAll,
-        getOne: getOne
+        getOne: getOne,
+        create: create
     };
 
     function getAll(productId) {
@@ -32,8 +33,7 @@ app.factory('ReviewsFactory', function ($http) {
             author: review.author,
             date: Date.now()
         };
-
-        return $http.post('/api/products/reviews/' + productID, config )
+        return $http.post('/api/products/'+productID+'/reviews/', config )
             .then(function (results) {
                 return results.data;
             });
