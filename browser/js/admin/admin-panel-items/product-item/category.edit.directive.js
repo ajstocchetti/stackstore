@@ -23,6 +23,8 @@ app.directive('categoryEdit', function () {
 
             $scope.addCategory= function(id){
                 var newCategory = prompt("Please Enter a Category");
+                if (!newCategory)
+                    return;
                 var config = $scope.categories;
                 config.push(newCategory);
                 console.log(config)
