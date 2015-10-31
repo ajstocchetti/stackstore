@@ -4,6 +4,7 @@ app.factory('PaymentFactory', function($http) {
       return $http.post('/api/checkout/' + id, data)
       .then(function(response){
         console.log(response);
+        return response.data
       })
     }
   }
