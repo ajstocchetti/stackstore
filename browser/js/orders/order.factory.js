@@ -12,8 +12,14 @@ app.factory('OrderFactory', function ($http) {
     }
 
     function cancelOrder(id) {
-      console.log("Cancelling order");
-      console.log(id);
+      // id = JSON.stringify(id)
+      var config = {
+        orderStatus: "cancelled"
+      };
+      $http.put('/api/order/'+id, config)
+      .then(function(resp) {
+        return resp.data;
+      })
     }
 
 
