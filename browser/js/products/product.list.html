@@ -1,7 +1,7 @@
 <div class="product-container">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4" >
                 <p class="lead">Categories</p>
                 <div class="list-group" >
                     <a ng-repeat="category in categories" ng-class="{active: activeCat == category}" ng-click="filterByCategory(category)" href="#" class="list-group-item">{{category}}</a>
@@ -9,7 +9,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="product in products">
+                <div class=" col-md-4" ng-repeat="product in products">
                     <product-list product="product"></product-list>
                 </div>
             </div>

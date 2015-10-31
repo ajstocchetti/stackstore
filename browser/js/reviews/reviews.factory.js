@@ -13,13 +13,11 @@ app.factory('ReviewsFactory', function ($http) {
     function getAll(productId) {
         return $http.get('/api/products/reviews/' + productId) //product ID
             .then(function (results) {
-                console.log(results.data);
                 return results.data;
             });
     }
 
     function getOne(productID, reviewID) {
-        console.log('got inside getAll');
         return $http.get('/api/products/reviews/' + productID + '/' + reviewID)
             .then(function (results) {
                 return results.data;

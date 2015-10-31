@@ -1,12 +1,15 @@
 
+<div class="empty-cart" ng-hide="cart.items.length" >
+  <fullstack-logo></fullstack-logo>
+  <h3>To be unarmed is to be destroyed. Check out our <a ui-sref="productList">collection</a></h3>
+</div>
 
-
-<table class="table table-hover">
+<table class="table table-hover" ng-show="cart.items.length > 0">
 	<thead>
 		<tr>
 			<th></th>
-            <th></th>
-            <th></th>
+            <th>Item</th>
+            <th>Type</th>
             <th>Quantity</th>
             <th>Unit Price</th>
             <th>Item Total</th>
@@ -14,7 +17,8 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in cart.items track by $index">
-            <td><a><span ng-click="remove(item.product._id)" ui-sref="cart"class="glyphicon glyphicon-remove"></span></a></td>
+            <!-- <td><a><span ng-click="remove(item.product._id)" ui-sref="cart"class="glyphicon glyphicon-remove"></span></a></td> -->
+            <td><span ng-click="remove(item.product._id)" class="glyphicon glyphicon-remove remove-btn"></span></td>
 
             <td>{{item.product.name}}</td>
             <td>{{item.product.type}}</td>
@@ -35,8 +39,9 @@
 			<td>{{cart.total | currency}}</td>
 		</tr>
 	</tfoot>
+
 </table>
-<button ui-sref="checkout({ id: cart._id})">Checkout</button>
+<button class="checkout" ng-show="cart.items.length > 0" ui-sref="checkout({ id: cart._id})">Checkout</button>
 
 <pre>
 	

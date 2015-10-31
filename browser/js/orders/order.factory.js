@@ -1,6 +1,7 @@
 app.factory('OrderFactory', function ($http) {
     return {
-        getOne: getOrder
+        getOne: getOrder,
+        cancelOrder: cancelOrder
     };
 
     function getOrder(id) {
@@ -10,7 +11,16 @@ app.factory('OrderFactory', function ($http) {
         })
     }
 
-
+    function cancelOrder(id) {
+      // id = JSON.stringify(id)
+      var config = {
+        orderStatus: "cancelled"
+      };
+      $http.put('/api/order/'+id, config)
+      .then(function(resp) {
+        return resp.data;
+      })
+    }
 
 
 });

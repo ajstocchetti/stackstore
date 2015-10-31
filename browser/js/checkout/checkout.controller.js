@@ -6,6 +6,9 @@ app.controller('checkoutCtrl', function($scope, orderData, AuthService, PaymentF
   $scope.error = null;
   $scope.shippingAddress = {};
   $scope.billingAddress = {};
+  if(orderData.user) {
+    $scope.shippingAddress.email = orderData.user.email;
+  }
 
   $scope.isLoggedIn = function() {
     return AuthService.isAuthenticated();

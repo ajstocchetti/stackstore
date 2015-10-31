@@ -49,6 +49,7 @@ function updateOrder(order, req) {
   order.billing.last4 = req.body.last4;
   order.billing.expMonth = req.body.expMonth;
   order.billing.expYear = req.body.expYear;
+  order.email =  req.body.shippingAddress.email;
   order.status = 'created'
   return order
 }
