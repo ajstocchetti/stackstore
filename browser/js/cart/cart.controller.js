@@ -11,6 +11,7 @@ app.controller('cartCtrl', function($scope, CartFactory, cart ) {
 	};
 
 	$scope.remove = function(prod){
+		console.log('cartCtrl remove prod', prod );
 		return CartFactory.remove(prod);
 	};
 

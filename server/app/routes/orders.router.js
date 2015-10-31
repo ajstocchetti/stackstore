@@ -105,6 +105,7 @@ router.post('/cart', function(req, res, next) {
 
 router.delete('/cart/:id', function(req, res, next) {
   var prodId = req.params.id
+  console.log('/cart .delete :', prodId);
   if(!prodId)
     return res.send(400);
 

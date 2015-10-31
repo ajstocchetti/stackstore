@@ -39,6 +39,7 @@ app.factory('CartFactory', function($http) {
   };
 
   function removeFromCart(productId) {
+    console.log('CartFactory removeFromCart', productId);
     $http.delete('/api/order/cart/' + productId)
     .then(function(resp) {
       theCart = resp.data;
