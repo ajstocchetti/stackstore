@@ -88,6 +88,7 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 router.post('/cart', function(req, res, next) {
+  console.log('order post route', req.body);
   var prodId = req.body.product;
   var quantity = req.body.quantity;
   if(!(quantity && prodId))

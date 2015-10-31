@@ -97,31 +97,35 @@ schema.methods.calcTotalPrice = function() {
 }
 
 schema.methods.updateCart = function(productId, quantity) {
+  console.log('updateCart',productId, quantity);
   var index = _.pluck(this.items, 'product')
     .map(function(obj) { return obj._id.toString() })
-    console.log(index);
-    index.indexOf(productId);
-    console.log(index);
+    .indexOf(productId);
+    console.log('the index', index);
 
-  if(quantity>0) {
-    if(index != -1) {
-      this.items[index].quantity = quantity;
-    } else {
-      // lookup product price
-      var cart = this;
-      return Product.findById(productId)
-      .then(function(product) {
-        cart.items.push({
-          product: productId,
-          quantity: quantity,
-          unitPrice: product.price
-        });
-        cart.calcTotalPrice();
-        return cart.save();
-      })
-      // .then(null, function(err) { console.error(err)})
-    }
-  } else {
+
+
+    if(quantity!=0) {
+      if(index != -1) {
+        this.items[index].quantity += quantity;
+      } else {
+        // lookup product price
+        var cart = this;
+        return Product.findById(productId)
+        .then(function(product) {
+          cart.items.push({
+            product: productId,
+            quantity: quantity,
+            unitPrice: product.price
+          });
+          cart.calcTotalPrice();
+          return cart.save();
+        })
+        // .then(null, function(err) { console.error(err)})
+      }
+  } 
+  else {
+
     if(index != -1) {
       this.items.splice(index,1);
     }
