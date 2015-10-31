@@ -22,10 +22,9 @@ var schema = new mongoose.Schema({
   total: Number,
   billing: {
     address: [ addressSchema ],
-    cardNumber: { type: Number },
-    expiration: { type: Date },
-    csv: { type: Number },
-    nameOnCard: { type: String }
+    last4: Number,
+    expMonth: Number,
+    expYear: Number
   },
   shipping: {
     name: String,

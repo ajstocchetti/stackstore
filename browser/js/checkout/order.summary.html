@@ -1,7 +1,7 @@
-    <div class="col-md-4">
+    <div class="col-md-4 order-summary">
        <h4>Your Order</h4>
-       <p><b>Subtotal:</b> {{ order._id}} </p>
-       <p><b>Shipping:</b> <span>Free!</span></p>
-       <p>Total: </p>
-       <button>Edit Cart</button>
+       <p><b>Subtotal:</b> {{ order.total | currency }} </p>
+       <p><b>Shipping:</b> <span class="free">Free!</span></p>
+       <p>Total: {{ order.total | currency }} </p>
+       <button ui-sref="cart">Edit Cart</button>
     </div>

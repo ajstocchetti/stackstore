@@ -1,15 +1,21 @@
-<div class="col-md-8">
+<div class="col-md-4">
 
-    <form stripe-form="stripeCallback" name="form">
+    <form stripe-form="stripeCallback" name="paymentForm">
+      <label for="line1">Name on Card</label>
+      <input type="text" id="name" placeholder="Name on Card" class="form-control" />
+      <label for="line1">Card Number</label>
       <input ng-model="number" placeholder="Card Number" payments-format="card"
-             payments-validate="card" name="card" />
+             payments-validate="card" name="card" class="form-control" />
+      <label for="line1">Expiration Date</label>
       <input ng-model="expiry" placeholder="Expiration" payments-format="expiry"
-             payments-validate="expiry" name="expiry" />
+             payments-validate="expiry" name="expiry" class="form-control"/>
+      <label for="line1">CVC</label>
       <input ng-model="cvc" placeholder="CVC" payments-format="cvc"
-             payments-validate="cvc" name="cvc" />
+             payments-validate="cvc" name="cvc" class="form-control"/>
+      
       <button type="submit">Submit</button>
     </form>
-
+</div>
     <div ng-if="form.card.$invalid">
       Error: invalid card number!
     </div>
@@ -21,5 +27,5 @@
     </div>
 
     <pre>{{ number }}</pre>
+    <pre>{{ paymentForm | json}}</pre>
 
-</div>
