@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="(key,value) in product" ng-if="value | isntArray">
+        <tr ng-repeat="(key,value) in product" ng-if="key | importantCategories"  >
 
             <td>{{key}}</td>
             <td>

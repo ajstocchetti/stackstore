@@ -1,16 +1,57 @@
-
-<div class = col-lg-3 >
-    <h1>
-        <img src="{{product.image[0]}}" alt="{{ product.name }}" height="42" width="42">
-        <a ui-sref='productDetail({ id: product._id })'>{{product.name}}</a>
-    </h1>
-    <h4>Price: {{product.price | currency}}</h4>
-
-    <a ui-sref='reviewsList({ id: product._id })'>{{product.ratings}}</a>
-    <star-ratings product ="product" readonly="rating.isReadOnly"> </star-ratings>
-
-    <h4 ng-repeat="category in product.category">
-        {{category}}
-    </h4>
-    <button type="submit" ng-click="add(product._id)">Add to Cart</button>
+<div class="thumbnail">
+    <img src="{{product.image[0]}}" alt="">
+    <div class="caption">
+        <h4 class="pull-right">{{product.price | currency}}</h4>
+        <h4><a href="#">{{product.name}}</a>
+        </h4>
+        <p><b>Type:</b> {{product.type}} <b>Capacity:</b>{{product.capacity}} </p>
+        <p>{{product.category[0]}}  {{product.category[1]}}</p>
+        <button type="submit" ng-click="add(product._id)">Add to Cart</button
+    </div>
+    <div class="ratings">
+        <p class="pull-right">{{product.reviews.length}}</p>
+        <p>
+            <star-ratings product ="product" readonly="rating.isReadOnly"> </star-ratings>
+        </p>
+    </div>
 </div>
+
+
+
+
+
+
+<!--<div class="thumbnail">-->
+        <!--<img class="pull-left" style="width:33%"  src="{{product.image[0]}}" alt="">-->
+        <!--<div class="caption">-->
+            <!--<h4 class="pull-right">{{product.price | currency}}</h4>-->
+                <!--<h4><a ui-sref='productDetail({ id: product._id })'>{{product.name}}</a>-->
+                <!--</h4>-->
+                <!--<p>{{product.type}}</p>-->
+        <!--</div>-->
+        <!--<div class="ratings">-->
+            <!--<p class="pull-right">{{product.ratings}}</p>-->
+            <!--<p>-->
+                <!--<star-ratings product ="product" readonly="rating.isReadOnly"> </star-ratings>-->
+            <!--</p>-->
+        <!--</div>-->
+<!--</div>-->
+
+
+
+
+<!--<div class = "well col-md-4 product-pane">-->
+    <!--<h1>-->
+        <!--<img src="{{product.image[0]}}" alt="{{ product.name }}" height="42" width="42">-->
+        <!--<a ui-sref='productDetail({ id: product._id })'>{{product.name}}</a>-->
+    <!--</h1>-->
+    <!--<h4>Price: {{product.price | currency}}</h4>-->
+
+    <!--<a ui-sref='reviewsList({ id: product._id })'>{{product.ratings}}</a>-->
+    <!--<star-ratings product ="product" readonly="rating.isReadOnly"> </star-ratings>-->
+
+    <!--<h4 ng-repeat="category in product.category">-->
+        <!--{{category}}-->
+    <!--</h4>-->
+    <!--<button type="submit" ng-click="add(product._id)">Add to Cart</button>-->
+<!--</div>-->

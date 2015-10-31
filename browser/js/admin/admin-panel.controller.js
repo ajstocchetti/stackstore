@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('adminPanelCtrl', function($scope, AdminFactory, users, orders, showDetails, products, $http) {
+app.controller('adminPanelCtrl', function($scope,  AdminFactory, users, orders, showDetails, products, $http) {
 
     $scope.users  = users;
     $scope.orders = orders;
@@ -10,6 +10,8 @@ app.controller('adminPanelCtrl', function($scope, AdminFactory, users, orders, s
     $scope.eEditable= -1;
     $scope.catEdit = false;
     $scope.photoEdit = false
+
+
 
     $scope.categoryManagement = function(name){
         $scope.catEdit == name ? $scope.catEdit = false : $scope.catEdit = name;

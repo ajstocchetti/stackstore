@@ -25,10 +25,23 @@
         </div>
 
         <div class="form-group">
+            <label for="newWeight">Product Weight</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newWeight.$error.required">Required!</span>
+            <input id='newWeight' type="text" name="newWeight" data-ng-model="newWeight" placeholder="20 Parsecs(note: parsecs is not a unit of weight or speed)" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="newType">Product Type</label>
+            <span class="label label-danger" data-ng-show="submitted && addForm.newType.$error.required">Required!</span>
+            <input id='newType' type="text" name="newType" data-ng-model="newType" placeholder="Oh-Negative Blaster" class="form-control" required />
+        </div>
+
+        <div class="form-group">
             <label for="newDescription">Product Description</label>
             <span class="label label-danger" data-ng-show="submitted && addForm.newDescription.$error.required">Required!</span>
             <input id='newDescription'type="text" name="newDescription" data-ng-model="newDescription" placeholder="This gun will knock your socks off" class="form-control" required />
         </div>
+
 
         <div class="form-group">
             <label for="newMan">Manufacturer</label>
@@ -41,7 +54,7 @@
         <div class="form-group">
             <label for="newImage">URL of Image</label>
             <span class="label label-danger" data-ng-show="submitted && addForm.$error.url">Invalid URL format!</span>
-            <input id="newImage" type="url" name="newImage" placeholder="http://limecelebration.com/tatershooter.jpg" data-ng-model="newImage" class="form-control" />
+            <input id="newImage" type="url" name="newImage" placeholder="http://limecelebration.com/tartershooter.jpg" data-ng-model="newImage" class="form-control" />
         </div>
 
 

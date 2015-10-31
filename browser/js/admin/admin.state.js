@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
                     return AdminFactory.getAllOrders();
                 },
                 showDetails: function() {
-                    return "orders"
+                    return  "orders"
                 },
                 products: function(ProductList){
                     console.log('here I am');
