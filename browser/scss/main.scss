@@ -6,7 +6,8 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
-
+$link-color: #f30046;
+$accent-color: #fC0;
 body {
   background: #fdfdfd;
 }
@@ -88,3 +89,4 @@ body {
 @import 'components/main';
 @import 'cart/main';
 @import 'products/main';
+@import 'account/main';
